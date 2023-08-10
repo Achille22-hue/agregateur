@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<%- include('head') %>
+
+<body>
+  <div class="docs-header">
+    <%- include('header') %>
+  </div>
+  <main>
+    <section class="py-lg-14 py-10">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card rounded-1 bg-primary  mt-4 ">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="p-4">
+                  <h4 class="mb-0 text-white">
+                    <%= pagingData.titre %>
+                  </h4>
+                </div>
+              </div>
+            </div>
+
+            <div contente="">
+              <%- include('articles') %>
+              <% if (pagingData.totalPages !=0) { %>
+              <nav aria-label="..." class="mt-4">
+                <ul class="pagination pagination-sm">
+                  <li class="page-item <% if(pagingData.currentPage <= 1) { %> disabled <% } %>">
+                    <a class="page-link" href="/page/<%= pagingData.currentPage - 1 %>" tabindex="-1" aria-disabled="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                      </svg>
+                    </a>
+                  </li>
+                  <% const currentPage=pagingData.currentPage; const paginationRange=1;
+                        const totalPages=pagingData.totalPages; const
+                        startPage=Math.max(currentPage - paginationRange, 1); const
+                        endPage=Math.min(currentPage + paginationRange, totalPages); %>
+                  <% if (startPage> 1) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="/actualite/<%= category %>/1">1</a>
+                  </li>
+                  <% if (startPage> 2) { %>
+                  <li class="page-item"><a class="page-link">...</a></li>
+                  <% } %>
+                  <% } %>
+                  <% for (let i=startPage; i <=endPage; i++) { %>
+                  <li class="page-item <%=i===currentPage ? 'active' : '' %>">
+                    <a class="page-link" href="/actualite/<%= category %>/<%= i %>">
+                      <%= i %>
+                    </a>
+                  </li>
+                  <% } %>
+                  <% if (endPage < totalPages) { %>
+                  <% if (endPage < totalPages - 1) { %>
+                  <li class="page-item"><a class="page-link">...</a>
+                  </li>
+                  <% } %>
+                  <li class="page-item">
+                    <a class="page-link" href="/actualite/<%= category %>/<%= totalPages %>">
+                      <%= totalPages %>
+                    </a>
+                  </li>
+                  <% } %>
+                  <li class="page-item <% if(pagingData.currentPage >= pagingData.totalPages) { %> disabled <% } %>">
+                    <a class="page-link" href="/actualite/<%= category %>/<%= pagingData.currentPage + 1 %>">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6">
+                        </polyline>
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <% } %>
+            </div>
+
+          </div>
+          <div class="col-md-4">
+            <div class="sticky">
+              <div class="card rounded-1 p-3 mt-8 bg-primary">
+                <h6 class="text-white mb-0">Organes de presse</h6>
+              </div>
+              <div data-org="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+<%- include('footer') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<script type="text/javascript" src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/assets/libs/simplebar/dist/simplebar.min.js"></script>
+<script type="text/javascript" src="/assets/js/theme.min.js"></script>
+<script type="text/javascript" src="/assets/js/theme.js"></script>
+
+</html>

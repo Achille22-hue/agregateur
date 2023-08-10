@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<%- include('head') %>
+
+    <body>
+        <div class="docs-header">
+            <%- include('header') %>
+        </div>
+        <main>
+            <section class="py-lg-14 py-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Résultas de recherche pour <%= param %></h5>
+                            <div class=" w-100 card p-3 mt-4 rounded-1">
+                                <form id="search" method="POST">
+                                    <div class="input-group ">
+                                        <input class="form-control rounded-1" name="q" type="search" value="<%= param %>" placeholder="Trouver un article">
+                                        <span class="input-group-append">
+                                            <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-search">
+                                                    <circle cx="11" cy="11" r="8"></circle>
+                                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <input type="submit" value="Rechercher" class="btn btn-primary mt-3 rounded-1 btn-sm">
+                                </form>
+                            </div>
+                            <% if(pagingData.articles == ""){ %>
+                                <div class="mt-5 fs-5 text-center">
+                                    Aucun résultat pour <%= param %>
+                                </div>
+                            <% } %>
+                            <div contente="">
+                                <%- include('articles') %>
+                                    <% if (pagingData.totalPages != 0) { %>
+                                        <nav aria-label="..." class="mt-4">
+                                            <ul class="pagination pagination-sm">
+                                                <li
+                                                    class="page-item <% if(pagingData.currentPage <= 1) { %> disabled <% } %>">
+                                                    <a class="page-link" href="/search/<%= param %>/<%= pagingData.currentPage - 1 %>"
+                                                        tabindex="-1" aria-disabled="true">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="feather feather-chevron-left">
+                                                            <polyline points="15 18 9 12 15 6"></polyline>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <% for (let i=1; i < pagingData.totalPages; i++) { %>
+                                                    <li class="page-item <% if(pagingData.currentPage == i) { %> active <% } %>"
+                                                        aria-current="page">
+                                                        <a class="page-link" href="/search/<%= param %>/<%- i %>/"><%- i %> </a>
+                                                    </li>
+                                                    <% } %>
+                                                        <li
+                                                            class="page-item <% if(pagingData.currentPage >= pagingData.totalPages) { %> disabled <% } %>">
+                                                            <a class="page-link"
+                                                                href="/search/<%= param %>/<%- pagingData.totalPages %>"><%-
+                                                                    pagingData.totalPages %></a></li>
+                                                        <li
+                                                            class="page-item <% if(pagingData.currentPage >= pagingData.totalPages) { %> disabled <% } %>">
+                                                            <a class="page-link"
+                                                                href="/search/<%= param %>/<%= pagingData.currentPage + 1 %>">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                    height="20" viewBox="0 0 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    class="feather feather-chevron-right">
+                                                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                            </ul>
+                                        </nav>
+                                        <% } %>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="sticky">
+                                <div class="card rounded-1 p-3 mt-8 bg-primary">
+                                    <h6 class="text-white mb-0">Organes de presse</h6>
+                                </div>
+
+                                <div data-org=""></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+        <script type="text/javascript" src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="/assets/libs/simplebar/dist/simplebar.min.js"></script>
+        <script type="text/javascript" src="/assets/js/theme.min.js"></script>
+        <script type="text/javascript" src="/assets/js/theme.js"></script>
+
+</html>

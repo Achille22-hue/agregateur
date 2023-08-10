@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="fr">
+<!--<![endif]-->
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Page Introuvable</title>
+<meta name="keywords" lang="fr" content="">
+<meta name="description" content="">
+<meta name="robots" content="noindex, nofollow">
+<meta name="author" content="">
+<link rel="image_src" href="/assets/img/favicon.png" />
+<link rel="icon" href="/assets/img/favicon.png">
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<![endif]-->
+	
+	
+<!--REQUIRED STYLE SHEETS-->
+<!-- feuille de style police google -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:300,400,700" type="text/css" media="all">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+
+
+<!-- feuille de style police google -->
+		
+<!-- cssboot  affichage auto apres defilement chargement des scripts -->
+<script type="text/javascript" src="/assets/cssboot/jquery.js"></script>
+<link type="text/css" href="/assets/cssboot/styles-min.css" rel="stylesheet">
+<link href="/assets/css/stylepagination.css" rel="stylesheet" type="text/css"/>
+<!-- cssboot  fin -->
+
+
+
+<!-- DEROULEMENT ACCORDEONS CSS -->	
+<link href="/assets/css-accordion/accordionmenu.css" rel="stylesheet" type="text/css"/>
+<!-- BOOTSTRAP CORE STYLE CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet" />
+<!-- FONTAWESOME EMOTICONE STYLE CSS -->
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet" />
+<link href="/css/font-awesome.min.css" rel="stylesheet" />
+<!-- CUSTOM STYLE CSS -->
+<link href="/assets/css/styleint.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/assets/css/animate.css">
+
+<!-- style debut entete mobile et ordi bureau -->
+<link rel="stylesheet" href="/assets/css/stylesmobi_nomobi.css" type="text/css" media="all" />
+<!-- Style debut entete mobile ordi bureau -->
+
+<link rel="stylesheet" id="stm_default_google_font-css" href="/assets/css/css.css" type="text/css" media="all">
+
+
+
+<!-- DEBUT style GRILLE  -->
+<link rel="stylesheet" type="text/css" href="/assets/css/cssgrid-50prcent.css" />
+
+<!-- FIN style GRILLE  -->
+
+
+
+<!-- DEBUT ACCORDION LISTE OUVRANTE -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/css-accordion/accordion.js"></script>
+<script type="text/javascript">
+
+ddaccordion.init({
+	headerclass: "submenuheader", //Shared CSS class name of headers group
+	contentclass: "submenu", //Shared CSS class name of contents group
+	revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
+	mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+	collapseprev: true, //Collapse previous content (so only one open at any time)? true/false 
+	defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+	onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+	animatedefault: false, //Should contents open by default be animated into view?
+	persiststate: true, //persist state of opened contents within browser session?
+	toggleclass: ["", ""], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+	togglehtml: ["suffix", "<img src='/assets/img/plus.png' class='statusicon' />", "<img src='/assets/img/moins.png' class='statusicon' />"], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+	animatespeed: "fast", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+	oninit:function(headers, expandedindices){ //custom code to run when headers have initalized
+		//do nothing
+	},
+	onopenclose:function(header, index, state, isuseractivated){ //custom code to run whenever a header is opened or closed
+		//do nothing
+	}
+})
+
+</script>
+<!-- FIN ACCORDION LISTE OUVRANTE -->
+
+
+<!-- affichage premier plan image -->
+<script type="text/javascript" src="/assets/scripts/highslide-with-gallery.js"></script>
+<!-- lien vers la feuille de style, v�rifier qu'ils se trouvent bien le dossier -->
+<link rel="stylesheet" type="text/css" href="/assets/scripts/highslide.css">
+
+<!--
+les parametres definis dans le script de depart peuvent etre modifies ici
+ATTENTION, ne pas modifier hs.graphicsDir
+-->
+<script type="text/javascript">
+hs.graphicsDir = '/assets/scripts/graphics/';
+hs.align = 'center';
+hs.transitions = ['expand', 'crossfade'];
+hs.outlineType = 'glossy-dark';
+hs.wrapperClassName = 'dark';
+hs.fadeInOut = true;
+hs.dimmingOpacity = 0.75;
+
+// barre de navigation
+hs.addSlideshow({
+	interval: 5000,
+	repeat: false,
+	useControls: true,
+	fixedControls: 'fit',
+	overlayOptions: {
+		opacity: 0.5,
+		position: 'bottom center',
+		hideOnMouseOut: true
+	}
+});
+
+</script>
+
+
+
+<!-- DEBUT MENU MOBILE -->
+<link rel="stylesheet" href="/assets/menu-css/style.css">
+<script src="/assets/menu-js/modernizr.js"></script>
+<!-- FIN MENU MOBILE -->
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>	
+<body>
+
+
+
+
+		
+<!-- debut header1 de la page -->
+
+
+<!-- debut ORDI DE BUREAU-->
+<span class="noMobile">
+<div id="Parallax-color">
+<div class="container secthead1buro">
+<div class="col-md-offset-0">
+
+<!-- debut ORDI DE BUREAU-->
+
+ <div style="displays: none;" id="fixedbarhead">
+ <div class="container-fluid secthead1buroF">
+ <div class="col-md-offset-1"> 
+ 
+ <div class="col-lg-3 col-md-3 col-sm-3 topmarg2 text-left">
+	<a class=" " href="/"><div class="carre-logo2">LE MATIN</div> </a>
+			</div>
+						
+
+<div class="col-lg-5 col-md-5 col-sm-5 topmarg2 text-right">	
+<form id="searconnexord" action="/article/rechercher.php" method="post">
+				<input  name="requete" maxlength="60" type="text" placeholder="RECHERCHER" value="RECHERCHER" onBlur="if(this.value=='') this.value='RECHERCHER';" onFocus="if(this.value=='RECHERCHER') this.value='';" /> 
+          </form>
+</div>
+
+<div class="col-lg-2 col-md-2 col-sm-2 topmarg2 text-right">
+</div>
+
+		
+
+  </div>
+    </div>
+	</div>
+
+			
+	
+	
+			
+			
+	
+      <script type="text/javascript">
+                    $(document).ready(function(){
+                                       
+              $(window).on('scroll',function() {
+                var scrolltop = $(this).scrollTop();
+
+                if(scrolltop >= 200) {
+                  $('#fixedbarhead').fadeIn(100);
+                }
+                
+                else if(scrolltop <= 200) {
+                  $('#fixedbarhead').fadeOut(100);
+                }
+              });
+            });
+        </script>
+<!-- cssboot  fin -->
+
+<!-- FIN ORDI DE BUREAU-->	
+
+
+<!-- debut ORDI DE BUREAU-->
+<div style="displays: none;" id="fixedinfobas">
+ 
+
+<div class="container sectheadinfo for-full-back">
+<div class="col-md-offset-0">        
+
+<div class="col-lg-1 col-md-1 col-sm-1">
+</div>
+
+
+<div class="col-lg-10 col-md-10 col-sm-10 ">
+ 
+
+<!-- DEBUT SI RESULTAT EXISTE -->
+
+<div>
+                
+	<div class=""><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle"><div class="text1scoop">
+	Godomey /Commune d&#039;Abomey-Calavi: La place des f&ecirc;tes en chantier vient de s&#039;effondre   
+</div></td>
+  </tr>
+</table>
+</div>	 </div>	
+
+</div>
+			
+
+<div class="col-lg-1 col-md-1 col-sm-1"></div>
+
+
+		
+
+</div>						
+</div>	
+
+</div>
+
+
+
+
+
+      <script type="text/javascript">
+                    $(document).ready(function(){
+                                       
+              $(window).on('scroll',function() {
+                var scrolltop = $(this).scrollTop();
+
+                if(scrolltop >= 0) {
+                  $('#fixedinfobas').fadeIn(100);
+                }
+                
+                else if(scrolltop <= 0) {
+                  $('#fixedinfobas').fadeOut(100);
+                }
+              });
+            });
+        </script>
+<!-- cssboot  fin -->
+
+<!-- FIN ORDI DE BUREAU-->
+<div class="col-lg-4 col-md-4 col-sm-4 text-left"></div>
+
+<div class="col-lg-4 col-md-4 col-sm-4 text-center">
+<a href="/"><div class="carre-logo text-center"></div></a>
+</div>
+					
+<div class="col-lg-4 col-md-4 col-sm-4  text-right"></div>
+
+
+
+	
+	
+</div>
+</div>	
+</div>			
+</span>
+<!-- FIN ORDI DE BUREAU-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- debut MOBILE -->                   	
+<span class="mobile">			
+<div class="" >
+<div class="container-fluid">
+		
+	
+	
+
+<div class="text-center" id="Parallax-z3mob">
+<a class=" " href="/"><div class="carre-logo-mob"></div> 
+<div class="textimagrub2 "><em></em></div></a>
+</div>
+	
+	
+</div>
+</div>
+
+</span>
+<!-- FIN MOBILE-->	
+
+
+ <!-- les connectess  ---------------------------- -->
+ <!-- les connectess  ---------------------------- --><!-- fin header1 de la page ============================================================= -->
+		
+
+
+ <!-- debut header2 de la page  ============================================================== -->
+	    <!-- debut ORDI DE BUREAU-->
+<span class="noMobile">
+
+<!--Header2 section niveau2  -->
+<div id="Parallax-color">
+<div class="container secthead4buro2 for-full-back">
+<div class="col-md-offset-0">        
+
+<!-- debut ORDI DE BUREAU-->
+ <div style="displays: none;" id="fixedbarmenu">
+ 
+ <div class="">
+<div class="container secthead4buro2 for-full-back">
+<div class="col-md-offset-0">        
+
+
+<div class="col-lg-1 col-md-1 col-sm-1"></div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 text-center">
+ <!-- Collect the nav links for toggling -->
+            <div class="">
+                <ul class="nav navbar-nav ">
+										    
+					     <li ><a href="/article/actualite/">ACTUALIT&Eacute;</a></li>
+						<li ><a href="/article/politique/">POLITIQUE</a></li>						
+						<li ><a href="/article/societe/">SOCI&Eacute;T&Eacute;</a></li>
+						<li ><a href="/article/culture/">CULTURE</a></li>
+						<li ><a href="/article/sante/">SANT&Eacute;</a></li>
+						<li ><a href="/article/sport/">SPORT</a></li>
+						
+						<li class="dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">PLUS </a>
+                            <ul class="dropdown-menu">
+							    <li class="divider"></li>
+								<li><a href="/article/plus/?cat=divers">FAITS DIVERS</a></li>
+								<li><a href="/article/plus/?cat=appels">APPELS D'OFFRE</a></li>
+								<li><a href="/article/plus/?cat=annonces">AVIS ET ANNONCES</a></li>
+								<li><a href="/article/plus/?cat=emploi">OFFRES D'EMPLOI</a></li>                                
+								<li class="divider"></li>
+								<li class="divider"></li>
+                            </ul>
+                        </li>
+					
+					               
+						</ul>
+ </div>
+ </div>
+ <!-- /.navbar-collapse -->
+			
+
+			
+<div class="col-lg-1 col-md-1 col-sm-1">
+                <ul class="nav navbar-nav navbar-right secthead4buro1">	
+					<li><a href="/abonnement/connexion_abonnes.php" title="">CONNEXION</a> </li>			
+</ul>
+</div>		
+
+<div class="col-lg-1 col-md-1 col-sm-1 "></div>
+ <!-- /.navbar-collapse -->
+ 
+ 
+
+</div>			
+					
+</div>	
+</div>
+</div>
+
+
+
+
+      <script type="text/javascript">
+                    $(document).ready(function(){
+                                       
+              $(window).on('scroll',function() {
+                var scrolltop = $(this).scrollTop();
+
+                if(scrolltop >= 200) {
+                  $('#fixedbarmenu').fadeIn(100);
+                }
+                
+                else if(scrolltop <= 200) {
+                  $('#fixedbarmenu').fadeOut(100);
+                }
+              });
+            });
+        </script>
+<!-- cssboot  fin -->
+
+<!-- FIN ORDI DE BUREAU-->
+<div class="col-lg-1 col-md-1 col-sm-1 "></div>
+
+
+<div class="col-lg-9 col-md-9 col-sm-9 text-center">
+ <!-- Collect the nav links for toggling -->
+            <div class="">
+                <ul class="nav navbar-nav ">
+										    
+					     <li ><a href="/article/actualite/">ACTUALIT&Eacute;</a></li>
+						<li ><a href="/article/politique/">POLITIQUE</a></li>						
+						<li ><a href="/article/societe/">SOCI&Eacute;T&Eacute;</a></li>
+						<li ><a href="/article/culture/">CULTURE</a></li>
+						<li ><a href="/article/sante/">SANT&Eacute;</a></li>
+						<li ><a href="/article/sport/">SPORT</a></li>
+						
+						<li class="dropdown active">
+                            <a href="#" data-toggle="dropdown">PLUS </a>
+                            <ul class="dropdown-menu">
+							    <li class="divider"></li>
+								<li><a href="/article/plus/?cat=divers">FAITS DIVERS</a></li>
+								<li><a href="/article/plus/?cat=appels">APPELS D'OFFRE</a></li>
+								<li><a href="/article/plus/?cat=annonces">AVIS ET ANNONCES</a></li>
+								<li><a href="/article/plus/?cat=emploi">OFFRES D'EMPLOI</a></li>                                
+								<li class="divider"></li>
+								<li class="divider"></li>
+                            </ul>
+                        </li>
+					
+					               
+						</ul>
+ </div>
+ </div>
+ <!-- /.navbar-collapse -->
+			
+
+			
+<div class="col-lg-1 col-md-1 col-sm-1">
+                <ul class="nav navbar-nav navbar-right secthead4buro1">	
+					<li><a href="#" title="">CONNEXION</a> </li>			
+</ul>
+</div>		
+
+
+<div class="col-lg-1 col-md-1 col-sm-1"></div>
+ <!-- /.navbar-collapse -->
+</div>			
+			
+			
+</div>	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- DEBUT  ============================================================= -->
+<section id="secthead1buroN">
+<div class="container">
+<div class="col-md-offset-0">
+
+<div class="col-lg-1 col-md-1 col-sm-1 "></div>
+
+<div class="col-lg-2 col-md-2 col-sm-2 colorate-left text-left">
+<span class="colorate-position2"><a class=" btn-green2 " href="/article/international/"><strong>INTERNATIONAL</strong></a></span>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 colorate-left text-center">
+<span class="colorate-position2"><a class=" btn-green2 " href="#"><strong>INVIT&Eacute; SP&Eacute;CIAL</strong></a></span>
+</div>
+
+<div class="col-lg-2 col-md-2 col-sm-2 colorate-left text-right">	
+<span class="colorate-position2" ><a class=" btn-green2 " href="/journal/">
+<strong>LE JOURNAL EN PDF</strong></a></span>
+</div>
+
+<div class="col-lg-1 col-md-1 col-sm-1"><div class="colorate-left"></div></div>
+            
+</div>
+</div>
+</section>
+<!-- fin  ============================================================= -->
+
+
+ 
+</span>
+<!-- FIN ORDI DE BUREAU-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- debut MOBILE -->                   	
+<span class="mobile">
+
+
+
+
+<div id="cd-nav">
+	<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
+	<nav id="cd-main-nav">
+	
+		<ul><div class="glossymenu"><br/><br/>
+		
+		<div class="searpositionMOBILE"><form id="searconnexord" action="/article/rechercher.php" method="post">
+				<input  name="requete" maxlength="60" type="text" placeholder="RECHERCHER" value="RECHERCHER" onBlur="if(this.value=='') this.value='RECHERCHER ';" onFocus="if(this.value=='RECHERCHER') this.value='';" /> 
+          </form>  </div>
+		<br/><br/>	 
+				        <li ><a href="/journal/">LIRE LE JOURNAL</a></li>
+						<li ><a href="/article/actualite/">ACTUALIT&Eacute;</a></li>
+						<li ><a href="/article/politique/">POLITIQUE</a></li>						
+						<li ><a href="/article/societe/">SOCI&Eacute;T&Eacute;</a></li>
+						<li ><a href="/article/culture/">CULTURE</a></li>
+						<li ><a href="/article/sante/">SANT&Eacute;</a></li>
+						<li ><a href="/article/sport/">SPORT</a></li>	
+
+<li ><a class="menuitem submenuheader" href="#">PLUS</a> </li>
+		         <ul class="submenu">
+				 <li><a href="/article/plus/?cat=divers">FAITS DIVERS</a></li>
+								<li><a href="/article/plus/?cat=appels">APPELS D'OFFRE</a></li>
+								<li><a href="/article/plus/?cat=annonces">AVIS ET ANNONCES</a></li>
+								<li><a href="/article/plus/?cat=emploi">OFFRES D'EMPLOI</a></li> 
+		         </ul>	
+										
+									
+					
+ <li ><a class="menuitem submenuheader" href="#">INSCRIPTION/CONNEXION</a></li>
+				<ul class="submenu">
+				
+				
+				<!-- DEBUT GESTION DES CONNEXIONS -->
+				<div class="text-center"><br/><a href="/abonnement/connexion_abonnes.php"><span class="btn btn-yellow2">Se connecter</span></a></div>
+				
+				<!-- FIN GESTION DES CONNEXIONS -->
+				
+				 <!-- DEBUT GESTION DES ABONNEMENTS -->
+				<div class="typetitretex2 text-center">INSCRIVEZ-VOUS</div>
+<div class="text-center">Lisez nos articles en premi&egrave;re parution.<br/><br/></div>
+<div class="text-center"><a href="/abonnement/"><span class="btn btn-green">S'ABONNEZ MAINTENANT</span></a></div><br/>
+<div class="text-center"><a href="/abonnement/connexion_abonnes.php"><span class="btn btn-green">SE CONNECTER</span></a></div>
+
+				<!-- FIN GESTION DES ABONNEMENTS -->
+				
+				
+				</ul>           
+           <li ><a href="#" >Contact</a></li>
+                  <br/><br/>       	
+			
+<div align="center"><span class="topplus"></span></div>
+<div class="typetext4" align="center"><br/><span class="Stymenu">
+ </span></div>
+<br/><br/>
+
+		</div></ul>
+	</nav>
+
+</div>
+</span>
+<!-- FIN MOBILE-->	
+
+
+
+<!-- DEBUT SECTION 4   ============================================================== -->
+<section class="" id="Parallax-color2">
+<div class="container-fluid" >
+<div class="row ">
+
+<div class="col-lg-1 col-md-1 col-sm-1"></div>
+
+<!-- DEBUT RETOUR ========================================= -->			
+<div class="  col-lg-6 col-md-6 col-sm-6 ">
+<div class="row ">
+
+<div class="affichage-unit">						
+<div class="shop-item">
+<div class="shop-item-image">
+<table width="100%" height="300" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="center" valign="middle" background="/assets/img/t1.jpg" style="background-size:cover;background-repeat:no-repeat;background-position:50% 50%; "  ><div align="left" >
+				   
+</div></td>
+                </tr>
+            </table>	   	
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<!-- FIN RETOUR ========================================= -->
+
+<!-- DEBUT RETOUR ========================================= -->			
+<div class="  col-lg-4 col-md-4 col-sm-4 ">
+<div class="row textimag">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th><div class="Styerreur" align="left">OUUUUF !Erreur 404! </div></th>
+  </tr>
+  <tr>
+    <th><div class="kbsty07" align="left">La page que vous recherchez n'existe pas (ou plus) !</div></th>
+  </tr>
+  <tr>
+    <th height="20">&nbsp;</th>
+  </tr>
+  <tr>
+    <td><div align="left">QUOTIDIENLEMATIN.NET : PREMIER QUOTIDIEN DU BENIN DEPUIS 1994</br>
+    <a href="../index.php">Retour &agrave; la page d'accueil</a> </div></td>
+  </tr>
+</table></div>
+</div>
+<!-- FIN RETOUR ========================================= -->
+
+<div class="col-lg-1 col-md-1 col-sm-1"></div>
+
+</div>
+</div>
+</section>
+<!-- FIN SECTION 4   ============================================================== -->
+
+
+
+
+
+
+	 
+	 
+	 
+
+<!-- DEBUT ZONE 7  ---   ============================================================== -->
+	    
+
+<section class="for-full-back" >
+ <div class="container">
+ <div class="col-md-offset-0 linevide"> 		
+ <div class="col-lg-12 col-md-12 col-sm-12" > 	
+
+</div>
+ </div>
+ </div>
+</section>
+
+
+	
+<!-- fin  ============================================================= -->
+
+
+
+<!-- DEBUT ZONE 7  ---   ============================================================== -->
+	    <!-- copyright ========================================= -->
+
+
+
+<div class="container sectheadinfo1 for-full-back">
+<div class="row">
+
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 lineh5-1"  >
+
+<div class="text-center info-copy" >
+</br>
+ Quotidien Le Matin   &copy; 2014 -    
+				    <script
+language="JavaScript" type="text/javascript"><!--
+today=new Date();
+y0=today.getFullYear();
+// end hiding --->
+                                      </script>
+            <script language="JavaScript" type="text/javascript">
+<!--- Hide from old browsers
+document.write(y0);
+// end hiding --->
+                                      </script>
+            <!-- FIN DU SCRIPT DATE DE COPYRIGHT-->  
+			<br>             
+     Design by The Head Communication 
+
+</br>
+</div>
+
+
+</div>
+
+
+
+
+</div>
+</div>
+<!-- copyright ========================================= -->
+
+
+
+
+
+<!-- debut ORDI DE BUREAU-->
+<span class="noMobile">
+<div >
+<br><br><br>
+</div>
+</span>	
+	
+<!-- fin  ============================================================= -->
+
+
+
+  
+
+
+
+
+<!-- ANIMATE SCRIPTS -->
+	<script src="/assets/js/jquery.min.js"></script> 
+    <script src="/assets/js/wow.min.js"></script> 
+    <script src="/assets/js/custom.js"></script>
+
+<!-- cssboot  affichage auto apres defilement chargement des scripts -->
+<script src="/assets/cssboot/bootstrap.js" type="text/javascript"></script>
+<!-- cssboot  fin -->	
+
+<!-- debut script menu mobile -->
+<script src="/assets/menu-js/jquery-2.1.1.js"></script>
+<script src="/assets/menu-js/main.js"></script>
+<!-- fin script menu mobile -->
+
+
+
+<!-- RESEAUX SOCIAUX -->
+<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+<!-- FIN RESEAUX SOCIAUX -->
+
+<!-- RESEAUX SOCIAUX importamt-->
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c4855d1c9830d001319ac79&product=inline-share-buttons"></script>
+<!-- FIN RESEAUX SOCIAUX -->
+</body>
+</html>

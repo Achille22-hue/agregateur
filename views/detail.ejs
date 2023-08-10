@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<%- include('head') %>
+
+    <body>
+        <div class="docs-header">
+            <%- include('header') %>
+        </div>
+        <main>
+            <section class="py-lg-14 py-10">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+
+                            <% if (articles.image_url===null) { %>
+                            <% } else { %>
+                                <% if (articles.image_url !="" ) { %>
+                                    <% if (articles.image_url.indexOf("http") !==-1) { %>
+                                            <div class="card bg-dark-overlay-3 h-300 overflow-hidden card-bg-scale text-center"
+                                                style="background-image:url(<%= articles.image_url %>); background-position: center left; background-size: cover;">
+                                    <% }else{ %>
+                                    <div class="card bg-dark-overlay-3 h-300 overflow-hidden card-bg-scale text-center"
+                                        style="background-image:url(/assets/actualite_img/<%= articles.image_url %>); background-position: center left; background-size: cover;">
+                                    <% } %>
+                                        <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                                            <div class="col-md-10 m-auto bg-blur p-5 rounded-3 shadow-lg">
+                                                <h1 class="text-white">
+                                                    <%= articles.title %>
+                                                </h1>
+                                                <nav class="d-flex justify-content-center" aria-label="breadcrumb">
+                                                    <ol class="breadcrumb breadcrumb-dark breadcrumb-dots mb-0">
+                                                        <li class="breadcrumb-item"><a class="text-info">Rubrique</a></li>
+                                                        <li class="breadcrumb-item active"><%= articles.name %></li>
+                                                    </ol>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            <% } %>
+                            <div class="card rounded-1 p-3 mt-4">
+                                <div class="text-dark contenu_article">
+                                    <%- articles.content %>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+    <%- include('footer') %>
+        <script type="text/javascript" src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="/assets/libs/simplebar/dist/simplebar.min.js"></script>
+        <script type="text/javascript" src="/assets/js/theme.min.js"></script>
+        <script type="text/javascript" src="/assets/js/theme.js"></script>
+
+</html>

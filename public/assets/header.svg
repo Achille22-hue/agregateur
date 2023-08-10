@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 663">
+<defs>
+    <radialGradient id="_bg_header-a" cx="73.903%" cy="116.657%" r="86.681%" fx="73.903%" fy="116.657%" gradientTransform="scale(-.3922 -1) rotate(24.281 4.85 -6.097)">
+        <stop offset="0%" stop-color="#18364c"></stop>
+        <stop offset="100%" stop-color="#0067FF"></stop>
+    </radialGradient>
+    <radialGradient id="_bg_header-b" cx="73.903%" cy="116.657%" r="84.053%" fx="73.903%" fy="116.657%" gradientTransform="scale(-.3922 -1) rotate(24.281 4.85 -6.097)">
+        <stop offset="0%" stop-color="#18364c"></stop>
+        <stop offset="100%" stop-color="#18364c"></stop>
+    </radialGradient>
+    <radialGradient id="_bg_header-c" cx="73.903%" cy="116.657%" r="86.681%" fx="73.903%" fy="116.657%" gradientTransform="scale(-.3922 -1) rotate(24.281 4.85 -6.097)">
+        <stop offset="0%" stop-color="#18364c"></stop>
+        <stop offset="100%" stop-color="#18364c"></stop>
+    </radialGradient>
+</defs>
+<g fill="none" fill-rule="evenodd" transform="translate(-346 -1015)">
+    <rect width="2162.834" height="848.252" x="67.691" y="610.396" fill="url(#_bg_header-a)" rx="424.126" transform="rotate(-13 1149.108 1034.522)"></rect>
+    <rect width="2162.834" height="848.252" x="157.691" y="590.396" fill="url(#_bg_header-b)" opacity=".538" rx="424.126" transform="rotate(-10 1239.108 1014.522)"></rect>
+    <rect width="2162.834" height="848.252" x="264.181" y="483.886" fill="url(#_bg_header-c)" opacity=".079" rx="424.126" transform="rotate(-150 1345.598 908.012)"></rect>
+</g>
+</svg>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<%- include('head') %>
+
+<body>
+  <div class="docs-header"><%- include('header') %></div>
+  <main>
+    <section class="py-lg-14 py-10">
+      <div class="container">
+
+        <div class="col-12">
+          <h5>Dernières actualités</h5>
+          <div class="card card-overlay-bottom h-300 overflow-hidden text-center" style="background-image:url('/assets/actualite_img/<%= lastArticle.image_url %>'); background-position: center left; background-size: cover;">
+            <div class="card-img-overlay d-flex align-items-center p-3 pb-4 px-sm-5">
+              <div class="col-12 mt-auto d-md-flex justify-content-between align-items-center">
+                <h4 class="text-white">
+                  <%= lastArticle.title %>
+                </h4>
+                <h6 class="badge text-bg-danger  mb-2 fw-medium h6 rounded-0">
+                  <%= lastArticle.press_name %>
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-8">
+            <div class="card rounded-1  mt-4 ">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <a href="" navigate="" class="btn  btn-primary rounded-1">Dernières
+                    actualités</a>
+                  <a href="" navigate="" class="btn rounded-1">Filtrer</a>
+                  <a href="" navigate="" class="btn rounded-1">Rechercher</a>
+                </div>
+              </div>
+            </div>
+
+            <div contente="">
+              <%- include('articles') %>
+              <% if (pagingData.totalPages !=0) { %>
+              <nav aria-label="..." class="mt-4">
+                <ul class="pagination pagination-sm">
+                  <li class="page-item <% if(pagingData.currentPage <= 1) { %> disabled <% } %>">
+                    <a class="page-link" href="/page/<%= pagingData.currentPage - 1 %>" tabindex="-1" aria-disabled="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                      </svg>
+                    </a>
+                  </li>
+                  <% const currentPage=pagingData.currentPage; const paginationRange=1;
+                        const totalPages=pagingData.totalPages; const
+                        startPage=Math.max(currentPage - paginationRange, 1); const
+                        endPage=Math.min(currentPage + paginationRange, totalPages); %>
+                  <% if (startPage> 1) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="/paging/1">1</a>
+                  </li>
+                  <% if (startPage> 2) { %>
+                  <li class="page-item"><a class="page-link">...</a></li>
+                  <% } %>
+                  <% } %>
+                  <% for (let i=startPage; i <=endPage; i++) { %>
+                  <li class="page-item <%=i===currentPage ? 'active' : '' %>">
+                    <a class="page-link" href="/paging/<%= i %>">
+                      <%= i %>
+                    </a>
+                  </li>
+                  <% } %>
+                  <% if (endPage < totalPages) { %>
+                  <% if (endPage < totalPages - 1) { %>
+                  <li class="page-item"><a class="page-link">...</a>
+                  </li>
+                  <% } %>
+                  <li class="page-item">
+                    <a class="page-link" href="/paging/<%= totalPages %>">
+                      <%= totalPages %>
+                    </a>
+                  </li>
+                  <% } %>
+                  <li class="page-item <% if(pagingData.currentPage >= pagingData.totalPages) { %> disabled <% } %>">
+                    <a class="page-link" href="/paging/<%= pagingData.currentPage + 1 %>">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6">
+                        </polyline>
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <% } %>
+            </div>
+
+            <div contente="" class="d-none">
+              <div class="card p-3 mt-4 rounded-1">
+                <div class="mb-3">
+                  <h5 class="mb-3">Catégories</h5>
+
+                  <div class="form-check mb-2 position-relative">
+                    <input class="form-check-input" type="checkbox" value="" id="all" checked="" />
+                    <a href="" class="stretched-link">Toutes les Catégories</a>
+                  </div>
+
+                  <div class="form-check mb-2 position-relative">
+                    <input class="form-check-input" type="checkbox" value="" id="eGrocery" />
+                    <a href="/actualite/politique" class="stretched-link">Politique</a>
+                  </div>
+
+                  <div class="form-check mb-2 position-relative">
+                    <input class="form-check-input" type="checkbox" value="" id="DealShare" />
+                    <a href="/actualite/economie" class="stretched-link">Economie</a>
+                  </div>
+
+                  <div class="form-check mb-2 position-relative">
+                    <input class="form-check-input" type="checkbox" value="" id="Dmart" />
+                    <a href="/actualite/sport" class="stretched-link">Sport</a>
+                  </div>
+
+                  <div class="form-check mb-2 position-relative">
+                    <input class="form-check-input" type="checkbox" value="" id="Blinkit" />
+                    <a href="/actualite/culture" class="stretched-link">Culture</a>
+                  </div>
+
+                  <div class="form-check mb-2 position-relative">
+                    <input class="form-check-input" type="checkbox" value="" id="Blinkit" />
+                    <a href="/actualite/societe" class="stretched-link">Société</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div contente="" class="d-none">
+              <div class=" w-100 card p-3 mt-4 rounded-1">
+                <form id="search" method="POST">
+                  <div class="input-group ">
+                    <input class="form-control rounded" name="q" type="search" placeholder="Trouver un article" />
+                    <span class="input-group-append">
+                      <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                  <input type="submit" value="Rechercher" class="btn btn-primary mt-3 rounded-1 btn-sm" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="sticky">
+              <div class="card rounded-1 p-3 mt-8 bg-primary">
+                <h6 class="text-white mb-0">Organes de presse</h6>
+              </div>
+              <div data-org=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+<%- include('footer') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<script type="text/javascript" src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/assets/libs/simplebar/dist/simplebar.min.js"></script>
+<script type="text/javascript" src="/assets/js/theme.min.js"></script>
+<script type="text/javascript" src="/assets/js/theme.js"></script>
+
+</html>
