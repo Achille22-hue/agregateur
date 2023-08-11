@@ -45,9 +45,6 @@ class Article extends Useful {
 
         if (article.length > 0) {
             const generatedSlug = this.generateSlug(article[0].title);
-            console.log(generatedSlug);
-            console.log(titre);
-
             if (generatedSlug === titre) {
                 return article[0];
             } else {
