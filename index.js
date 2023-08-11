@@ -13,6 +13,26 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/sapping', async (req, res) => {
+    const newsSites = [
+        {
+            name: 'LE MATIN', categories: [
+                { url: 'http://www.quotidienlematin.net/article/politique/', category: 1 },
+                { url: 'http://www.quotidienlematin.net/article/sport/', category: 3 },
+                { url: 'http://www.quotidienlematin.net/article/societe/', category: 5 },
+                { url: 'http://www.quotidienlematin.net/article/culture/', category: 4 },
+                { url: 'http://www.quotidienlematin.net/article/actualite/', category: 7 },
+            ]
+        }
+    ];
+
+    await scrappingSite(newsSites[0]).then((result) => {
+        console.log('terminer');
+    }).catch((err) => {
+        console.log(err);
+    });
+});
+
 app.use('/', routes);
 
 app.use((req, res, next) => {
