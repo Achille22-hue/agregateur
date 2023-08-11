@@ -231,14 +231,13 @@ const scrappingSite = async (sites) => {
                             const $new = cheerio.load(newContent.data);
                             const title = $new('div.textimagrub1contenu').text();
                             const image = url + $new('.shop-item-image img').attr('src');
-                            let content;
+                            let content = '';
 
-                            $new('.marge.text-left').each(async (index, element) => {
-                                $new(element).find('span,a,small,iframe,figure,img,.textimagrub1').remove();
-                                content += $new(element).html();
+                            $new('.marge.text-left:not(.textimagrub0-0, .textimagrub1contenu, .textimagrub4, .textimagrub1)').each((index, element) => {
+                                $new(element).find('span, a, small, iframe, figure, img, .textimagrub1, .affichage-line3, .textimagrub1contenu').remove();
+                                content += $new.html(element);
                             });
-                            console.log(content);
-                            // Article.newArticle(12, site.category, title.trim(), content, image);
+                            Article.newArticle(12, site.category, title.trim(), content, image);
                         }).catch((err) => {
                             console.log('Error while scrapping' + lien);
                         });
