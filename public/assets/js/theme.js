@@ -48,19 +48,19 @@ fetch("/all/organes")
         const org = document.querySelector("[data-org]");
         data.forEach(async (item) => {
             const dataurl = await urllink(item.name);
-            let dataitem = `<div class="card rounded-1 p-3 mt-2 organe" id-data-organe="${item.id}">
+            let organe = `<div class="card rounded-1 p-3 mt-2 organe" id-data-organe="${item.id}">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="">
                         <a href="/presse/${dataurl}" class="text-primary">
-                            <img src="/assets/logos/${item.url}" width="52" >
+                            <img src="/assets/logos/${item.logo}" width="52" >
                             ${item.name}</a>
                     </div>
                 </div>
             </div>`;
-            org.innerHTML += dataitem;
+            org.innerHTML += organe;
             await urll();
         });
-        
+
     })
     .catch((error) => {
         console.error("Erreur:", error);

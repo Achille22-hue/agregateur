@@ -47,11 +47,21 @@ class Useful {
     }
 
     static removeLeadingDot(inputString) {
-    if (inputString.startsWith('.')) {
-        return inputString.substring(1);
+        if (inputString.startsWith('.')) {
+            return inputString.substring(1);
+        }
+        return inputString;
     }
-    return inputString;
-}
+
+    static renamePicture(picture, url) {
+        if (picture.indexOf(url) === -1) {
+            if (picture.startsWith('.') || picture.startsWith('/')) {
+                picture = this.removeLeadingDot(picture);
+            }
+            picture = url + (url.endsWith('/') ? '' : '/') + picture;
+        }
+        return picture;
+    }
 }
 
 module.exports = Useful;

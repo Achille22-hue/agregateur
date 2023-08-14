@@ -102,6 +102,12 @@ class BD {
         const results = await this.client.query(sql, ['%' + q + '%', parPage, premier]);
         return results;
     }
+
+    async sitesUrl() {
+        const sql = `SELECT * FROM press_organ INNER JOIN presse_url ON presse_url.press_id = press_organ.id`;
+        const results = await this.client.query(sql);
+        return results.rows;
+    }
 }
 
 const bd = new BD();

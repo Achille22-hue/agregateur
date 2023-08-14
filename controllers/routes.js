@@ -3,10 +3,10 @@ const router = express.Router();
 const Article = require('../models/article');
 const Oganes = require('../models/organe');
 const bodyParser = require('body-parser');
+const scrapeSite = require('../models/scrapping.js');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
-
 
 router.get('/', async (req, res) => {
     await Article.getAll().then(async (pagingData) => {
@@ -15,6 +15,13 @@ router.get('/', async (req, res) => {
     }).catch((error) => {
         console.log(error);
     });
+});
+
+router.get('/test', async (req, res) => {
+    const sites = await Oganes.getAllpressesScrapping();
+    const promises = sites.map(site => scrapeSite(site));
+    await Promise.all(promises);
+    res.json('response');
 });
 
 

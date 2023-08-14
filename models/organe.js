@@ -44,5 +44,9 @@ class Oganes extends Useful {
         }
         return dta;
     }
+
+    static getAllpressesScrapping() {
+        return db.sitesUrl();
+    }
 }
 module.exports = Oganes;
