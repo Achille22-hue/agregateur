@@ -5,31 +5,34 @@ class Article extends Useful {
 
 
     static async newArticle(source_id, category_id, title, content, image_url) {
-
         console.log('In the process of scraping');
-
-        const selected = await db.query('SELECT * FROM news WHERE title = $1 AND source_id = $2', [title, source_id]);
-        if (selected.rows[0] || title == "") {
-            return;
-        } else {
-            const downloadedImageName = await this.downloadImage(image_url);
-            await db.query('INSERT INTO news (source_id, category_id, title, content, image_url) VALUES ($1, $2, $3, $4, $5) ', [source_id, category_id, title, content, downloadedImageName]);
-        }
+        const resultPromise = db.checkTitleExists(title, source_id);
+        resultPromise.then(async titleExists => {
+            if (titleExists || title === "") { return; }
+            try {
+                const downloadedImageName = await this.downloadImage(image_url);
+                const insertValues = [source_id, category_id, title, content, downloadedImageName];
+                await db.insertArticle(insertValues);
+            } catch (error) {
+                console.error('Erreur lors de l\'insertion de l\'article :', error.message);
+            }
+        }).catch(error => {
+            console.error('Erreur lors de la vérification du titre :', error);
+        });
     }
 
-
-    static async getAll(requestedPage) {
+    static async queryAllArticle(requestedPage) {
 
         if (requestedPage <= 0 || isNaN(requestedPage)) { requestedPage = 1; }
-        const count = await db.nbrNews();
-        const parPage = 10;
-        const nb_articles = parseInt(count);
-        const pages = Math.ceil(nb_articles / parPage);
+        const count = await db.numberOfArticles();
+        const perPage = 10;
+        const numberOfArticles = parseInt(count);
+        const pages = Math.ceil(numberOfArticles / perPage);
 
         if (requestedPage > pages) { requestedPage = pages; }
 
-        const premier = ((requestedPage * parPage) - parPage) + 1;
-        const articles = await db.queryArticles(parPage, premier);
+        const first = ((requestedPage * perPage) - perPage) + 1;
+        const articles = await db.queryArticles(perPage, first);
 
         return { articles: articles, currentPage: requestedPage, totalPages: pages };
     }
@@ -55,7 +58,7 @@ class Article extends Useful {
         }
     }
 
-    static async getArticleByCat(name, requestedPage) {
+    static async getArticleByCategory(name, requestedPage) {
         const category = await db.category();
         let dta = { articles: [], totalPages: 0, titre: name, currentPage: 0 };
         let categoryMatched = false;
@@ -64,37 +67,35 @@ class Article extends Useful {
             if (name === await this.generateSlug(cat.name)) {
                 categoryMatched = true;
                 if (requestedPage <= 0 || isNaN(requestedPage)) { requestedPage = 1; }
-                const count = await db.query('SELECT COUNT(*) AS nb_articles FROM news WHERE category_id = $1', [cat.id]);
-                const parPage = 10;
-                const nb_articles = parseInt(count.rows[0].nb_articles);
+                const count = await db.query('SELECT COUNT(*) AS numberOfArticles FROM news WHERE category_id = $1', [cat.id]);
+                const perPage = 10;
+                const numberOfArticles = parseInt(count.rows[0].numberofarticles);
 
-                const pages = Math.ceil(nb_articles / parPage);
+                const pages = Math.ceil(numberOfArticles / perPage);
 
-                if (nb_articles == 0) {
+                if (numberOfArticles == 0) {
                     dta = { articles: [], currentPage: requestedPage, totalPages: pages, titre: cat.name };
                     continue;
                 }
 
                 if (requestedPage > pages) { requestedPage = pages; }
-                const premier = (requestedPage * parPage) - parPage;
-                const results = await db.query('SELECT * FROM category INNER JOIN news ON category.id = news.category_id WHERE category.id = $1 ORDER BY news.id DESC LIMIT $2 OFFSET $3', [cat.id, parPage, premier]);
+                const first = (requestedPage * perPage) - perPage;
+                const results = await db.query('SELECT * FROM category INNER JOIN news ON category.id = news.category_id WHERE category.id = $1 ORDER BY news.id DESC LIMIT $2 OFFSET $3', [cat.id, perPage, first]);
                 const articles = results.rows;
                 dta = { articles: articles, currentPage: requestedPage, totalPages: pages, titre: cat.name };
             }
         }
-        if (!categoryMatched) {
-            throw new Error('Category');
-        }
+        if (!categoryMatched) { throw new Error('Category') }
         return dta;
     }
 
     static async searchNews(q, requestedPage) {
         const count = await db.countSearch(q);
-        const parPage = 10;
-        const nb_articles = parseInt(count);
-        const pages = Math.ceil(nb_articles / parPage);
-        const premier = (parseInt(requestedPage) - 1) * parPage;
-        const results = await db.search(q, parPage, premier);
+        const perPage = 10;
+        const numberOfArticles = parseInt(count);
+        const pages = Math.ceil(numberOfArticles / perPage);
+        const first = (parseInt(requestedPage) - 1) * perPage;
+        const results = await db.search(q, perPage, first);
         const pagingData = { articles: results.rows, currentPage: requestedPage, totalPages: pages };
         console.log(pagingData);
         return pagingData;

@@ -2,50 +2,50 @@ const db = require('./db');
 const Useful = require('./useful');
 
 class Oganes extends Useful {
-    static async getAllOrganes() {
+    static async queryAllArticleOrganes() {
         return await db.query('SELECT * FROM press_organ');
     }
 
-    static async getOrganesById(name, requestedPage) {
-        let dta;
-        name = await this.generateSlug(name);
+    static async getArticleByPress(pressOrgan, requestedPage) {
+        let data;
+        pressOrgan = await this.generateSlug(pressOrgan);
 
-        const press_organ = await this.getAllOrganes();
+        const allPressOrgan = await this.queryAllArticleOrganes();
         let categoryMatched = false;
-        for (const media of press_organ.rows) {
-            if (name === await this.urllink(media.name)) {
+        for (const media of allPressOrgan.rows) {
+            if (pressOrgan === await this.urllink(media.name)) {
                 categoryMatched = true;
                 if (requestedPage <= 0 || isNaN(requestedPage)) {
                     requestedPage = 1;
                 }
-                const count = await db.query('SELECT COUNT(*) AS nb_articles FROM news WHERE source_id = $1', [media.id]);
-                const parPage = 10;
-                const nb_articles = parseInt(count.rows[0].nb_articles);
-                const pages = Math.ceil(nb_articles / parPage);
+                const count = await db.query('SELECT COUNT(*) AS numberOfArticles FROM news WHERE source_id = $1', [media.id]);
+                const perPage = 10;
+                const numberOfArticles = parseInt(count.rows[0].numberofarticles);
+                const pages = Math.ceil(numberOfArticles / perPage);
 
                 if (requestedPage > pages) { requestedPage = pages; }
 
-                const premier = (requestedPage * parPage) - parPage;
+                const first = (requestedPage * perPage) - perPage;
 
-                if (nb_articles == 0) {
-                    dta = { articles: [], currentPage: requestedPage, totalPages: pages, titre: media };
+                if (numberOfArticles == 0) {
+                    data = { articles: [], currentPage: requestedPage, totalPages: pages, titre: media };
                     continue;
                 }
 
-                const results = await db.queryPress(media.id, parPage, premier);
+                const results = await db.queryPress(media.id, perPage, first);
                 const articles = results.rows;
 
-                dta = { articles: articles, currentPage: requestedPage, totalPages: pages, titre: media };
+                data = { articles: articles, currentPage: requestedPage, totalPages: pages, titre: media };
             }
         }
 
         if (!categoryMatched) {
             throw new Error('L\'organe n\'existe pas !');
         }
-        return dta;
+        return data;
     }
 
-    static getAllpressesScrapping() {
+    static queryAllArticlepressesScrapping() {
         return db.sitesUrl();
     }
 }

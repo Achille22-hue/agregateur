@@ -10,7 +10,6 @@ const funcContent = (content, i) => {
 const navigate = document.querySelectorAll('[navigate]');
 const content = document.querySelectorAll('[contente]');
 
-console.log(content);
 navigate.forEach((n, index) => {
     n.addEventListener("click", (event) => {
         event.preventDefault();
@@ -67,7 +66,6 @@ fetch("/all/organes")
     });
 
 const urll = () => {
-    console.log('debut');
     let data = document.querySelector('[organe_id]');
     if (data) {
         data = data.getAttribute('organe_id');

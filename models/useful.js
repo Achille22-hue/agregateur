@@ -54,7 +54,7 @@ class Useful {
     }
 
     static renamePicture(picture, url) {
-        if (picture.indexOf(url) === -1) {
+        if (picture.indexOf('http') === -1) {
             if (picture.startsWith('.') || picture.startsWith('/')) {
                 picture = this.removeLeadingDot(picture);
             }

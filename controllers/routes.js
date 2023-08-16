@@ -8,8 +8,30 @@ const scrapeSite = require('../models/scrapping.js');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
+const Sites = [
+    {
+        name: '24 HEURES AU BENIN',
+        site: [
+            { url: 'https://www.24haubenin.info/?-Politique-2-2-2-2-2-2-2-2-2-2-' },
+            { url: 'https://www.24haubenin.info/?-Societe-4-4-' },
+            { url: 'https://www.24haubenin.info/?-Sport-', },
+            { url: 'https://www.24haubenin.info/?-Economie-' },
+        ],
+        options: [
+            {
+                selector: '.une',
+                lienSelector: 'a:not(.url)',
+                titleSelector: 'h3.article',
+                imageSelector: 'img.spip_logo',
+                contentSelector: '.article'
+            },
+        ]
+    }
+];
+
+
 router.get('/', async (req, res) => {
-    await Article.getAll().then(async (pagingData) => {
+    await Article.queryAllArticle().then(async (pagingData) => {
         const lastArticle = await Article.getLastArticle();
         res.render('home', { pagingData: pagingData, lastArticle: lastArticle });
     }).catch((error) => {
@@ -18,16 +40,15 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/test', async (req, res) => {
-    const sites = await Oganes.getAllpressesScrapping();
-    const promises = sites.map(site => scrapeSite(site));
-    await Promise.all(promises);
-    res.json('response');
+    const sites = await Oganes.queryAllArticlepressesScrapping();
+    scrapeSite(sites[2]);
+    res.send(sites[2]);
 });
 
 
 router.get('/paging/:page', async (req, res) => {
     const requestedPage = req.params.page || 1;
-    await Article.getAll(parseInt(requestedPage)).then(async (pagingData) => {
+    await Article.queryAllArticle(parseInt(requestedPage)).then(async (pagingData) => {
         const lastArticle = await Article.getLastArticle();
         res.render('home', { pagingData: pagingData, lastArticle: lastArticle });
     }).catch((error) => {
@@ -48,7 +69,7 @@ router.get('/articles/:id/:titre', async (req, res) => {
 router.get('/presse/:id/:page?', async (req, res) => {
     const id = req.params.id;
     const page = req.params.page || 1;
-    await Oganes.getOrganesById(id, parseInt(page)).then((pagingData) => {
+    await Oganes.getArticleByPress(id, parseInt(page)).then((pagingData) => {
         res.render('organe', { pagingData: pagingData, organes: id });
     }).catch((error) => {
         res.status(404).render('404');
@@ -57,14 +78,14 @@ router.get('/presse/:id/:page?', async (req, res) => {
 });
 
 router.get('/all/organes', async (req, res) => {
-    const organes = await Oganes.getAllOrganes();
+    const organes = await Oganes.queryAllArticleOrganes();
     res.status(200).json(organes.rows);
 });
 
 router.get('/actualite/:cat/:page?', async (req, res) => {
     const cat = req.params.cat;
     const page = req.params.page || 1;
-    await Article.getArticleByCat(cat, parseInt(page)).then((pagingData) => {
+    await Article.getArticleByCategory(cat, parseInt(page)).then((pagingData) => {
         res.render('categorie', { pagingData: pagingData, category: cat });
     }).catch((error) => {
         console.log(error);

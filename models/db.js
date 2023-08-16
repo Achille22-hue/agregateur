@@ -23,6 +23,12 @@ class BD {
         });
     }
 
+    async insertArticle(insertValues) {
+        const query = 'INSERT INTO news (source_id, category_id, title, content, image_url) VALUES ($1, $2, $3, $4, $5) ';
+        await this.client.query(query, insertValues);
+        return true;
+    }
+
     async queryArticles(parPage, premier) {
         const sql = `
             SELECT n.id, n.title, n.image_url, n.content, n.scrapping_date, c.name AS category, p.name AS press_name
@@ -69,10 +75,10 @@ class BD {
         return results;
     }
 
-    async nbrNews() {
-        const sql = 'SELECT COUNT(*) AS nb_articles FROM news';
+    async numberOfArticles() {
+        const sql = 'SELECT COUNT(*) AS numberofarticles FROM news';
         const results = await this.client.query(sql);
-        return results.rows[0].nb_articles;
+        return results.rows[0].numberofarticles;
     }
 
     async query(sql, values) {
@@ -86,9 +92,9 @@ class BD {
     }
 
     async countSearch(q) {
-        const sql = `SELECT COUNT(*) AS nb_articles FROM news WHERE content ILIKE $1 `;
+        const sql = `SELECT COUNT(*) AS numberofarticles FROM news WHERE content ILIKE $1 `;
         const results = await this.client.query(sql, ['%' + q + '%']);
-        return results.rows[0].nb_articles;
+        return results.rows[0].numberofarticles;
     }
 
     async search(q, parPage, premier) {
@@ -107,6 +113,18 @@ class BD {
         const sql = `SELECT * FROM press_organ INNER JOIN presse_url ON presse_url.press_id = press_organ.id`;
         const results = await this.client.query(sql);
         return results.rows;
+    }
+
+    async checkTitleExists(title, press_id) {
+        try {
+            const query = 'SELECT COUNT(*) FROM news WHERE title = $1 AND source_id = $2';
+            const result = await this.client.query(query, [title, press_id]);
+            const count = parseInt(result.rows[0].count, 10);
+            return count;
+        } catch (error) {
+            console.error('Erreur lors de la vérification de l\'existence du titre:', error.message);
+            return false;
+        }
     }
 }
 
