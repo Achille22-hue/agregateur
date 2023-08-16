@@ -1,63 +1,63 @@
 <% if (pagingData.articles.length > 0) { %>
-    <% pagingData.articles.forEach(function(article) { %>
-        <% 
-            function generateSlug(inputString) {
-                const accentsMap = {
-                    'á': 'a', 'à': 'a', 'â': 'a', 'ä': 'a', 'ã': 'a', 'å': 'a',
-                    'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
-                    'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i',
-                    'ó': 'o', 'ò': 'o', 'ô': 'o', 'ö': 'o', 'õ': 'o', 'ø': 'o',
-                    'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u',
-                    'ý': 'y', 'ÿ': 'y',
-                    'ç': 'c', 'Ç': 'c'
-                };
-                const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"”“\\|,.<>»«\/?’]+/g;
-                const spaces = /[ ]/g;
-                const lowercaseString = inputString.toLowerCase();
-                const removedSpecialChars = lowercaseString.replace(specialChars, "");
-                const withoutAccents = removedSpecialChars.replace(/[^\u0000-\u007E]/g, char => accentsMap[char] || char);
-                const slug = withoutAccents.replace(spaces, "-");
-                return slug;
-            }
-         %>
+<% pagingData.articles.forEach(function(article) { %>
+<% 
+    function generateSlug(inputString) {
+        const accentsMap = {
+            'á': 'a', 'à': 'a', 'â': 'a', 'ä': 'a', 'ã': 'a', 'å': 'a',
+            'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
+            'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i',
+            'ó': 'o', 'ò': 'o', 'ô': 'o', 'ö': 'o', 'õ': 'o', 'ø': 'o',
+            'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u',
+            'ý': 'y', 'ÿ': 'y',
+            'ç': 'c', 'Ç': 'c'
+        };
+        const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"”“\\|,.<>»«\/?’]+/g;
+        const spaces = /[ ]/g;
+        const lowercaseString = inputString.toLowerCase();
+        const removedSpecialChars = lowercaseString.replace(specialChars, "");
+        const withoutAccents = removedSpecialChars.replace(/[^\u0000-\u007E]/g, char => accentsMap[char] || char);
+        const slug = withoutAccents.replace(spaces, "-");
+        return slug;
+    }
+%>
 
-        <div class="card rounded-1 p-3 mt-4">
-            <div class="row">
-                <div class="col-md-5">
-                    <% if (article.image_url===null) { %>
-                    <% } else { %>
-                        <% if (article.image_url.indexOf("http") !==-1) { %>
-                            <img src="<%= article.image_url %>" style="object-fit: cover; max-height: 230px;" class="rounded-3 w-100 h-100">
-                            <div class=" position-absolute top-0 start-0">
-                                <span class="badge bg-primary rounded-0">
-                                    <%= article.category %>
-                                </span>
-                            </div>
-                        <% }else{ %>
-                            <img src="/assets/actualite_img/<%= article.image_url %>" style="object-fit: cover; max-height: 230px;" class="rounded-3 w-100 h-100">
-                            <div class=" position-absolute top-0 start-0">
-                                <span class="badge bg-primary rounded-0"><%= article.category %></span>
-                            </div>
-                        <% } %>
-                    <% } %>
-                </div>
-                <div class="col-md-7 mt-3 mt-md-0">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="badge text-bg-danger  mb-2 fw-medium h6 rounded-0"><%= article.press_name %></h6>
-                        <small>
-                            <%= formatDate(article.scrapping_date) %>
-                        </small>
-                    </div>
-                    <h5><a href="/articles/<%= article.id %>/<%= generateSlug(article.title) %>/" class="stretched-link"><%= article.title %></a></h5>
-                    <div class="readMore"><%- article.content %></div>
-                </div>
-            </div>
-        </div>
-    <% }); %>
-    <% function formatDate(dateString) { const date=new Date(dateString); const day=String(date.getDate()).padStart(2, '0'
+<div class="card rounded-1 p-3 mt-4">
+  <div class="row">
+    <div class="col-md-5">
+      <% if (article.image_url===null) { %>
+      <% } else { %>
+      <% if (article.image_url.indexOf("http") !==-1) { %>
+      <img src="<%= article.image_url %>" style="object-fit: cover; max-height: 230px;" class="rounded-3 w-100 h-100">
+      <div class=" position-absolute top-0 start-0">
+        <span class="badge bg-primary rounded-0">
+          <%= article.category %>
+        </span>
+      </div>
+      <% }else{ %>
+      <img src="/assets/actualite_img/<%= article.image_url %>" style="object-fit: cover; max-height: 230px;" class="rounded-3 w-100 h-100">
+      <div class=" position-absolute top-0 start-0">
+        <span class="badge bg-primary rounded-0"><%= article.category %></span>
+      </div>
+      <% } %>
+      <% } %>
+    </div>
+    <div class="col-md-7 mt-3 mt-md-0">
+      <div class="d-flex justify-content-between">
+        <h6 class="badge text-bg-danger  mb-2 fw-medium h6 rounded-0"><%= article.press_name %></h6>
+        <small>
+          <%= formatDate(article.scrapping_date) %>
+        </small>
+      </div>
+      <h5><a href="/articles/<%= article.id %>/<%= generateSlug(article.title) %>/" class="stretched-link"><%= article.title %></a></h5>
+      <div class="readMore"><%- article.content %></div>
+    </div>
+  </div>
+</div>
+<% }); %>
+<% function formatDate(dateString) { const date=new Date(dateString); const day=String(date.getDate()).padStart(2, '0'
         ); const month=String(date.getMonth() + 1).padStart(2, '0' ); // Les mois sont indexés à partir de 0 const
         year=date.getFullYear(); const hours=String(date.getHours()).padStart(2, '0' ); const
         minutes=String(date.getMinutes()).padStart(2, '0' ); return `${day}-${month}-${year} à ${hours}:${minutes}`; } %>
 <% }else{ %>
-    <h6 class="mt-4">Pas d'article disponible pour le moment</h6>
+<h6 class="mt-4">Pas d'article disponible pour le moment</h6>
 <% } %>

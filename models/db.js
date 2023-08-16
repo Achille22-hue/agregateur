@@ -109,7 +109,7 @@ class BD {
         return results;
     }
 
-    async sitesUrl() {
+    async queryAllSiteScrapping() {
         const sql = `SELECT * FROM press_organ INNER JOIN presse_url ON presse_url.press_id = press_organ.id`;
         const results = await this.client.query(sql);
         return results.rows;
@@ -122,7 +122,7 @@ class BD {
             const count = parseInt(result.rows[0].count, 10);
             return count;
         } catch (error) {
-            console.error('Erreur lors de la vérification de l\'existence du titre:', error.message);
+            console.error('Erreur lors de la vérification de l\'existence du title:', error.message);
             return false;
         }
     }

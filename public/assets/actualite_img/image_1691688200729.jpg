@@ -584,7 +584,7 @@ hs.addSlideshow({
 				<!-- FIN GESTION DES CONNEXIONS -->
 				
 				 <!-- DEBUT GESTION DES ABONNEMENTS -->
-				<div class="typetitretex2 text-center">INSCRIVEZ-VOUS</div>
+				<div class="typetitletex2 text-center">INSCRIVEZ-VOUS</div>
 <div class="text-center">Lisez nos articles en premi&egrave;re parution.<br/><br/></div>
 <div class="text-center"><a href="/abonnement/"><span class="btn btn-green">S'ABONNEZ MAINTENANT</span></a></div><br/>
 <div class="text-center"><a href="/abonnement/connexion_abonnes.php"><span class="btn btn-green">SE CONNECTER</span></a></div>

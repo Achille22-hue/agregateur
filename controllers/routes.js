@@ -8,28 +8,6 @@ const scrapeSite = require('../models/scrapping.js');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-const Sites = [
-    {
-        name: '24 HEURES AU BENIN',
-        site: [
-            { url: 'https://www.24haubenin.info/?-Politique-2-2-2-2-2-2-2-2-2-2-' },
-            { url: 'https://www.24haubenin.info/?-Societe-4-4-' },
-            { url: 'https://www.24haubenin.info/?-Sport-', },
-            { url: 'https://www.24haubenin.info/?-Economie-' },
-        ],
-        options: [
-            {
-                selector: '.une',
-                lienSelector: 'a:not(.url)',
-                titleSelector: 'h3.article',
-                imageSelector: 'img.spip_logo',
-                contentSelector: '.article'
-            },
-        ]
-    }
-];
-
-
 router.get('/', async (req, res) => {
     await Article.queryAllArticle().then(async (pagingData) => {
         const lastArticle = await Article.getLastArticle();
@@ -40,14 +18,14 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/test', async (req, res) => {
-    const sites = await Oganes.queryAllArticlepressesScrapping();
+    const sites = await Oganes.queryAllSiteScrapping();
     scrapeSite(sites[2]);
     res.send(sites[2]);
 });
 
 
-router.get('/paging/:page', async (req, res) => {
-    const requestedPage = req.params.page || 1;
+router.get('/paging/:currentPage', async (req, res) => {
+    const requestedPage = req.params.currentPage || 1;
     await Article.queryAllArticle(parseInt(requestedPage)).then(async (pagingData) => {
         const lastArticle = await Article.getLastArticle();
         res.render('home', { pagingData: pagingData, lastArticle: lastArticle });
@@ -56,20 +34,20 @@ router.get('/paging/:page', async (req, res) => {
     });
 });
 
-router.get('/articles/:id/:titre', async (req, res) => {
-    const titre = req.params.titre;
+router.get('/articles/:id/:title', async (req, res) => {
+    const title = req.params.title;
     const id = parseInt(req.params.id);
-    await Article.getById(id, titre).then((articles) => {
+    await Article.getArticleById(id, title).then((articles) => {
         res.render('detail', { articles: articles });
     }).catch((error) => {
         res.render('404', { error: error });
     });
 });
 
-router.get('/presse/:id/:page?', async (req, res) => {
+router.get('/presse/:id/:currentPage?', async (req, res) => {
     const id = req.params.id;
-    const page = req.params.page || 1;
-    await Oganes.getArticleByPress(id, parseInt(page)).then((pagingData) => {
+    const currentPage = req.params.currentPage || 1;
+    await Oganes.getArticleByPress(id, parseInt(currentPage)).then((pagingData) => {
         res.render('organe', { pagingData: pagingData, organes: id });
     }).catch((error) => {
         res.status(404).render('404');
@@ -82,10 +60,10 @@ router.get('/all/organes', async (req, res) => {
     res.status(200).json(organes.rows);
 });
 
-router.get('/actualite/:cat/:page?', async (req, res) => {
+router.get('/actualite/:cat/:currentPage?', async (req, res) => {
     const cat = req.params.cat;
-    const page = req.params.page || 1;
-    await Article.getArticleByCategory(cat, parseInt(page)).then((pagingData) => {
+    const currentPage = req.params.currentPage || 1;
+    await Article.getArticleByCategory(cat, parseInt(currentPage)).then((pagingData) => {
         res.render('categorie', { pagingData: pagingData, category: cat });
     }).catch((error) => {
         console.log(error);
@@ -93,11 +71,11 @@ router.get('/actualite/:cat/:page?', async (req, res) => {
     })
 });
 
-router.get('/search/:q/:page?', async (req, res) => {
+router.get('/search/:q/:currentPage?', async (req, res) => {
     const q = req.params.q;
-    const requestedPage = req.params.page || 1;
-    const pagingData = await Article.searchNews(q, requestedPage);
-    res.render('search', { pagingData: pagingData, param: q });
+    const requestedPage = req.params.currentPage || 1;
+    const pagingData = await Article.searchForAnAticle(q, requestedPage);
+    res.render('search', { pagingData: pagingData, searchValue: q });
 });
 
 

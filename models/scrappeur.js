@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const cron = require('node-cron');
 const Article = require('./article');
-const Useful = require('./useful');
+const usefulFunction = require('./usefulFunction');
 const newsSites = require('./newsSites');
 
 const scrappingSite = async (sites) => {
@@ -26,7 +26,7 @@ const scrappingSite = async (sites) => {
                                 content = $new(element).html();
                             });
 
-                            Article.newArticle(6, site.category, title, content, image);
+                            Article.addNewArticle(6, site.category, title, content, image);
                         }).catch((err) => {
                             console.log('Error while scrapping' + lien);
                         });
@@ -57,7 +57,7 @@ const scrappingSite = async (sites) => {
                                 content = $new(element).html();
                             });
 
-                            Article.newArticle(5, site.category, title, content, image);
+                            Article.addNewArticle(5, site.category, title, content, image);
                         }).catch((err) => {
                             console.log('Error while scrapping' + lien);
                         });
@@ -76,7 +76,7 @@ const scrappingSite = async (sites) => {
 
                     $('.une').each(async (index, element) => {
                         let lien = $(element).find('a:not(.url)').attr('href');
-                        lien = url + await Useful.removeLeadingDot(lien);
+                        lien = url + await usefulFunction.removeLeadingDot(lien);
                         const title = $(element).find('h2').text();
 
                         await axios.get(lien).then((newContent) => {
@@ -87,7 +87,7 @@ const scrappingSite = async (sites) => {
                                 $new(element).find('span,a.url,small,iframe,figure,img').remove();
                                 content = $new(element).html();
                             });
-                            Article.newArticle(4, site.category, title, content, image);
+                            Article.addNewArticle(4, site.category, title, content, image);
                         }).catch((err) => {
                             console.log('Error while scrapping' + lien);
                         });
@@ -115,7 +115,7 @@ const scrappingSite = async (sites) => {
                                 $new(element).find('span,a.url,small,iframe,figure,img,div').remove();
                                 content = $new(element).html();
                             });
-                            Article.newArticle(7, site.category, title, content, image);
+                            Article.addNewArticle(7, site.category, title, content, image);
                         }).catch((err) => {
                             console.log('Error while scrapping' + lien);
                         });
@@ -144,7 +144,7 @@ const scrappingSite = async (sites) => {
                                 $new(element).find('span,a,small,iframe,figure,img,div').remove();
                                 content = $new(element).html();
                             });
-                            Article.newArticle(8, site.category, title, content, image);
+                            Article.addNewArticle(8, site.category, title, content, image);
                         }).catch((err) => {
                             console.log('Error while scrapping' + lien);
                         });
@@ -174,7 +174,7 @@ const scrappingSite = async (sites) => {
                                 $new(element).find('span,a,small,iframe,figure,img,div').remove();
                                 content = $new(element).html();
                             });
-                            Article.newArticle(10, site.category, title, content, image);
+                            Article.addNewArticle(10, site.category, title, content, image);
                         }).catch((err) => {
                             console.log('Error while scrapping' + lien);
                         });
@@ -207,7 +207,7 @@ const scrappingSite = async (sites) => {
                                 $new(element).find('span,a,small,iframe,figure,img').remove();
                                 content += $new(element).html();
                             });
-                            Article.newArticle(11, site.category, title, content, image);
+                            Article.addNewArticle(11, site.category, title, content, image);
                         }).catch(() => {
                             console.log('Error while scrapping' + lien);
                         });
@@ -237,7 +237,7 @@ const scrappingSite = async (sites) => {
                                 $new(element).find('span, a, small, iframe, figure, img, .textimagrub1, .affichage-line3, .textimagrub1contenu').remove();
                                 content += $new.html(element);
                             });
-                            Article.newArticle(12, site.category, title.trim(), content, image);
+                            Article.addNewArticle(12, site.category, title.trim(), content, image);
                         }).catch((err) => {
                             console.log('Error while scrapping' + lien);
                         });

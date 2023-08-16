@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-class Useful {
+class usefulFunction {
     static generateSlug(inputString) {
         const accentsMap = {
             'á': 'a', 'à': 'a', 'â': 'a', 'ä': 'a', 'ã': 'a', 'å': 'a',
@@ -64,4 +64,4 @@ class Useful {
     }
 }
 
-module.exports = Useful;
+module.exports = usefulFunction;

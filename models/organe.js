@@ -1,7 +1,7 @@
 const db = require('./db');
-const Useful = require('./useful');
+const usefulFunction = require('./usefulFunction');
 
-class Oganes extends Useful {
+class Oganes extends usefulFunction {
     static async queryAllArticleOrganes() {
         return await db.query('SELECT * FROM press_organ');
     }
@@ -28,14 +28,14 @@ class Oganes extends Useful {
                 const first = (requestedPage * perPage) - perPage;
 
                 if (numberOfArticles == 0) {
-                    data = { articles: [], currentPage: requestedPage, totalPages: pages, titre: media };
+                    data = { articles: [], currentPage: requestedPage, totalPages: pages, title: media };
                     continue;
                 }
 
                 const results = await db.queryPress(media.id, perPage, first);
                 const articles = results.rows;
 
-                data = { articles: articles, currentPage: requestedPage, totalPages: pages, titre: media };
+                data = { articles: articles, currentPage: requestedPage, totalPages: pages, title: media };
             }
         }
 
@@ -45,8 +45,8 @@ class Oganes extends Useful {
         return data;
     }
 
-    static queryAllArticlepressesScrapping() {
-        return db.sitesUrl();
+    static queryAllSiteScrapping() {
+        return db.queryAllSiteScrapping();
     }
 }
 module.exports = Oganes;

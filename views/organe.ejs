@@ -2,182 +2,151 @@
 <html>
 <%- include('head') %>
 
-    <body>
-        <div class="docs-header">
-            <%- include('header') %>
-        </div>
-        <main>
-            <section class="py-lg-14 py-10">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <% if (pagingData.titre !=undefined){ %>
-                                <div organe_id="<%= pagingData.titre.id %>"
-                                    class="card bg-dark-overlay-3 overflow-hidden card-bg-scale text-center"
-                                    style="background-image:url('/assets/logos/<%= pagingData.titre.logo %>'); background-position: center left; background-size: cover; height: 210px;">
-                                    <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
-                                        <div class="col-md-12 m-auto bg-blur p-5 rounded-3 shadow-lg" style="background: #0c0c0c7d">
-                                            <h1 class="text-white">
-                                                <%= pagingData.titre.name %>
-                                            </h1>
-                                        </div>
-                                    </div>
-                                </div>
-                                <% } %>
-                                    <div contente="">
-                                        <%- include('articles') %>
-                                            <% if (pagingData.totalPages !=0) { %>
-                                                <nav aria-label="..." class="mt-4">
-                                                    <ul class="pagination pagination-sm">
-                                                        <li
-                                                            class="page-item <% if(pagingData.currentPage <= 1) { %> disabled <% } %>">
-                                                            <a class="page-link"
-                                                                href="/page/<%= pagingData.currentPage - 1 %>"
-                                                                tabindex="-1" aria-disabled="true">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                    height="20" viewBox="0 0 24 24" fill="none"
-                                                                    stroke="currentColor" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"
-                                                                    class="feather feather-chevron-left">
-                                                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                                                </svg>
-                                                            </a>
-                                                        </li>
-                                                        <% const currentPage=pagingData.currentPage; const
+<body>
+  <div class="docs-header">
+    <%- include('header') %>
+  </div>
+  <main>
+    <section class="py-lg-14 py-10">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <% if (pagingData.title !=undefined){ %>
+            <div organe_id="<%= pagingData.title.id %>" class="card bg-dark-overlay-3 overflow-hidden card-bg-scale text-center" style="background-image:url('/assets/logos/<%= pagingData.title.logo %>'); background-position: center left; background-size: cover; height: 210px;">
+              <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4">
+                <div class="col-md-12 m-auto bg-blur p-5 rounded-3 shadow-lg" style="background: #0c0c0c7d">
+                  <h1 class="text-white">
+                    <%= pagingData.title.name %>
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <% } %>
+            <div contente="">
+              <%- include('articles') %>
+              <% if (pagingData.totalPages !=0) { %>
+              <nav aria-label="..." class="mt-4">
+                <ul class="pagination pagination-sm">
+                  <li class="page-item <% if(pagingData.currentPage <= 1) { %> disabled <% } %>">
+                    <a class="page-link" href="/page/<%= pagingData.currentPage - 1 %>" tabindex="-1" aria-disabled="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                      </svg>
+                    </a>
+                  </li>
+                  <% const currentPage=pagingData.currentPage; const
                                                             paginationRange=1; const totalPages=pagingData.totalPages;
                                                             const startPage=Math.max(currentPage - paginationRange, 1);
                                                             const endPage=Math.min(currentPage + paginationRange,
                                                             totalPages); %>
 
-                                                            <% if (startPage> 1) { %>
-                                                                <li class="page-item">
-                                                                    <a class="page-link"
-                                                                        href="/presse/<%= organes %>/1">1</a>
-                                                                </li>
-                                                                <% if (startPage> 2) { %>
-                                                                    <li class="page-item"><a class="page-link">...</a>
-                                                                    </li>
-                                                                    <% } %>
-                                                                        <% } %>
+                  <% if (startPage> 1) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="/presse/<%= organes %>/1">1</a>
+                  </li>
+                  <% if (startPage> 2) { %>
+                  <li class="page-item"><a class="page-link">...</a>
+                  </li>
+                  <% } %>
+                  <% } %>
 
-                                                                            <% for (let i=startPage; i <=endPage; i++) {
+                  <% for (let i=startPage; i <=endPage; i++) {
                                                                                 %>
-                                                                                <li
-                                                                                    class="page-item <%=i===currentPage ? 'active' : '' %>">
-                                                                                    <a class="page-link"
-                                                                                        href="/presse/<%= organes %>/<%= i %>">
-                                                                                        <%= i %>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <% } %>
+                  <li class="page-item <%=i===currentPage ? 'active' : '' %>">
+                    <a class="page-link" href="/presse/<%= organes %>/<%= i %>">
+                      <%= i %>
+                    </a>
+                  </li>
+                  <% } %>
 
-                                                                                    <% if (endPage < totalPages) { %>
-                                                                                        <% if (endPage < totalPages - 1)
+                  <% if (endPage < totalPages) { %>
+                  <% if (endPage < totalPages - 1)
                                                                                             { %>
-                                                                                            <li class="page-item"><a
-                                                                                                    class="page-link">...</a>
-                                                                                            </li>
-                                                                                            <% } %>
-                                                                                                <li class="page-item"><a
-                                                                                                        class="page-link"
-                                                                                                        href="/presse/<%= organes %>/<%= totalPages %>">
-                                                                                                        <%= totalPages
+                  <li class="page-item"><a class="page-link">...</a>
+                  </li>
+                  <% } %>
+                  <li class="page-item"><a class="page-link" href="/presse/<%= organes %>/<%= totalPages %>">
+                      <%= totalPages
                                                                                                             %>
-                                                                                                    </a></li>
-                                                                                                <% } %>
-                                                                                                    <li
-                                                                                                        class="page-item <% if(pagingData.currentPage >= pagingData.totalPages) { %> disabled <% } %>">
-                                                                                                        <a class="page-link"
-                                                                                                            href="/presse/<%= organes %>/<%= pagingData.currentPage + 1 %>">
-                                                                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                                                width="20"
-                                                                                                                height="20"
-                                                                                                                viewBox="0 0 24 24"
-                                                                                                                fill="none"
-                                                                                                                stroke="currentColor"
-                                                                                                                stroke-width="2"
-                                                                                                                stroke-linecap="round"
-                                                                                                                stroke-linejoin="round"
-                                                                                                                class="feather feather-chevron-right">
-                                                                                                                <polyline
-                                                                                                                    points="9 18 15 12 9 6">
-                                                                                                                </polyline>
-                                                                                                            </svg>
-                                                                                                        </a>
-                                                                                                    </li>
-                                                    </ul>
-                                                </nav>
-                                                <% } %>
-                                    </div>
+                    </a></li>
+                  <% } %>
+                  <li class="page-item <% if(pagingData.currentPage >= pagingData.totalPages) { %> disabled <% } %>">
+                    <a class="page-link" href="/presse/<%= organes %>/<%= pagingData.currentPage + 1 %>">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6">
+                        </polyline>
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <% } %>
+            </div>
 
-                                    <div contente="" class="d-none">
-                                        <div class="card p-3 mt-4 rounded-1">
-                                            <div class="mb-3">
+            <div contente="" class="d-none">
+              <div class="card p-3 mt-4 rounded-1">
+                <div class="mb-3">
 
-                                                <h5 class="mb-3">Catégories</h5>
+                  <h5 class="mb-3">Catégories</h5>
 
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="checkbox" value="" id="all"
-                                                        checked="">
-                                                    <label class="form-check-label" for="all">
-                                                        Toutes les Catégories
-                                                    </label>
-                                                </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="all" checked="">
+                    <label class="form-check-label" for="all">
+                      Toutes les Catégories
+                    </label>
+                  </div>
 
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="eGrocery">
-                                                    <label class="form-check-label" for="eGrocery">
-                                                        Politique
-                                                    </label>
-                                                </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="eGrocery">
+                    <label class="form-check-label" for="eGrocery">
+                      Politique
+                    </label>
+                  </div>
 
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="DealShare">
-                                                    <label class="form-check-label" for="DealShare">
-                                                        Economie
-                                                    </label>
-                                                </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="DealShare">
+                    <label class="form-check-label" for="DealShare">
+                      Economie
+                    </label>
+                  </div>
 
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="checkbox" value="" id="Dmart">
-                                                    <label class="form-check-label" for="Dmart">
-                                                        Sport
-                                                    </label>
-                                                </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="Dmart">
+                    <label class="form-check-label" for="Dmart">
+                      Sport
+                    </label>
+                  </div>
 
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="Blinkit">
-                                                    <label class="form-check-label" for="Blinkit">
-                                                        Culture
-                                                    </label>
-                                                </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="Blinkit">
+                    <label class="form-check-label" for="Blinkit">
+                      Culture
+                    </label>
+                  </div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="sticky mt-7">
-                                <div class="card rounded-1 p-3 bg-primary">
-                                    <h6 class="text-white mb-0">Organes de presse</h6>
-                                </div>
-                                <div data-org=""></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </section>
-        </main>
-    </body>
-    <%- include('footer') %>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-        <script type="text/javascript" src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="/assets/libs/simplebar/dist/simplebar.min.js"></script>
-        <script type="text/javascript" src="/assets/js/theme.min.js"></script>
-        <script type="text/javascript" src="/assets/js/theme.js"></script>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-4">
+            <div class="sticky mt-7">
+              <div class="card rounded-1 p-3 bg-primary">
+                <h6 class="text-white mb-0">Organes de presse</h6>
+              </div>
+              <div data-org=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+<%- include('footer') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+<script type="text/javascript" src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/assets/libs/simplebar/dist/simplebar.min.js"></script>
+<script type="text/javascript" src="/assets/js/theme.min.js"></script>
+<script type="text/javascript" src="/assets/js/theme.js"></script>
 
 </html>

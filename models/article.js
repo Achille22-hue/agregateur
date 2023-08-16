@@ -1,28 +1,40 @@
 const db = require('./db');
-const Useful = require('./useful');
+const usefulFunction = require('./usefulFunction');
 
-class Article extends Useful {
+class Article extends usefulFunction {
 
+    /**
+     * Method to add a new article to the database
+     * @param {number} source_id 
+     * @param {number} category_id 
+     * @param {string} title 
+     * @param {string} content
+     * @param {string} image_url 
+     */
 
-    static async newArticle(source_id, category_id, title, content, image_url) {
+    static async addNewArticle(source_id, category_id, title, content, image_url) {
         console.log('In the process of scraping');
         const resultPromise = db.checkTitleExists(title, source_id);
         resultPromise.then(async titleExists => {
-            if (titleExists || title === "") { return; }
+            if (titleExists || title === "") { return }
             try {
                 const downloadedImageName = await this.downloadImage(image_url);
                 const insertValues = [source_id, category_id, title, content, downloadedImageName];
                 await db.insertArticle(insertValues);
             } catch (error) {
-                console.error('Erreur lors de l\'insertion de l\'article :', error.message);
+                console.error('Error inserting item:', error.message);
             }
         }).catch(error => {
-            console.error('Erreur lors de la vérification du titre :', error);
+            console.error('Error checking title:', error);
         });
     }
 
+    /**
+     * Method to manage the pagination of the articles retrieved according to the page requested
+     * @param {number} requestedPage 
+     * @returns Returns an object containing the data to retrieve, the current page and the total page
+     */
     static async queryAllArticle(requestedPage) {
-
         if (requestedPage <= 0 || isNaN(requestedPage)) { requestedPage = 1; }
         const count = await db.numberOfArticles();
         const perPage = 10;
@@ -37,59 +49,72 @@ class Article extends Useful {
         return { articles: articles, currentPage: requestedPage, totalPages: pages };
     }
 
+    /**
+     * Method to retrieve the last article from the database
+     * @returns Last article from the database
+     */
     static async getLastArticle() {
         const results = await db.lastArticle();
         return results;
     }
 
-    static async getById(id, titre) {
+    /**
+     * Method to retrieve an article according to its ID
+     * @param {number} id 
+     * @param {string} title 
+     * @returns Article according to its ID
+     */
+    static async getArticleById(id, title) {
         const results = await db.query('SELECT * FROM ((press_organ AS po INNER JOIN news AS n1 ON n1.source_id = po.id) INNER JOIN category AS c ON n1.category_id = c.id) WHERE n1.id = $1', [id]);
         const article = results.rows;
 
         if (article.length > 0) {
             const generatedSlug = this.generateSlug(article[0].title);
-            if (generatedSlug === titre) {
+            if (generatedSlug === title) {
                 return article[0];
             } else {
-                throw new Error('Slug ne correspond pas');
+                throw new Error('Slug does not fit');
             }
         } else {
-            throw new Error('Article non trouvé');
+            throw new Error('Item not found');
         }
     }
 
-    static async getArticleByCategory(name, requestedPage) {
-        const category = await db.category();
-        let dta = { articles: [], totalPages: 0, titre: name, currentPage: 0 };
+    /**
+     * Method to retrieve an article according to its category
+     * @param {string} categoryName 
+     * @param {number} requestedPage 
+     * @returns Article according to its category
+     */
+    static async getArticleByCategory(categoryName, requestedPage) {
+        const categorys = await db.category();
+        let data = { articles: [], totalPages: 0, title: categoryName, currentPage: 0 };
         let categoryMatched = false;
 
-        for (const cat of category.rows) {
-            if (name === await this.generateSlug(cat.name)) {
+        for (const category of categorys.rows) {
+            if (categoryName === await this.generateSlug(category.name)) {
                 categoryMatched = true;
                 if (requestedPage <= 0 || isNaN(requestedPage)) { requestedPage = 1; }
                 const count = await db.query('SELECT COUNT(*) AS numberOfArticles FROM news WHERE category_id = $1', [cat.id]);
                 const perPage = 10;
                 const numberOfArticles = parseInt(count.rows[0].numberofarticles);
-
                 const pages = Math.ceil(numberOfArticles / perPage);
-
                 if (numberOfArticles == 0) {
-                    dta = { articles: [], currentPage: requestedPage, totalPages: pages, titre: cat.name };
+                    data = { articles: [], currentPage: requestedPage, totalPages: pages, title: category.name };
                     continue;
                 }
-
                 if (requestedPage > pages) { requestedPage = pages; }
                 const first = (requestedPage * perPage) - perPage;
-                const results = await db.query('SELECT * FROM category INNER JOIN news ON category.id = news.category_id WHERE category.id = $1 ORDER BY news.id DESC LIMIT $2 OFFSET $3', [cat.id, perPage, first]);
+                const results = await db.query('SELECT * FROM category INNER JOIN news ON category.id = news.category_id WHERE category.id = $1 ORDER BY news.id DESC LIMIT $2 OFFSET $3', [category.id, perPage, first]);
                 const articles = results.rows;
-                dta = { articles: articles, currentPage: requestedPage, totalPages: pages, titre: cat.name };
+                data = { articles: articles, currentPage: requestedPage, totalPages: pages, title: category.name };
             }
         }
-        if (!categoryMatched) { throw new Error('Category') }
-        return dta;
+        if (!categoryMatched) { throw new Error('Category not found') }
+        return data;
     }
 
-    static async searchNews(q, requestedPage) {
+    static async searchForAnAticle(q, requestedPage) {
         const count = await db.countSearch(q);
         const perPage = 10;
         const numberOfArticles = parseInt(count);
