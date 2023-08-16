@@ -3,6 +3,12 @@ const fs = require('fs');
 const path = require('path');
 
 class usefulFunction {
+
+    /**
+     * Method to generate a Slug
+     * @param {string} inputString 
+     * @returns string
+     */
     static generateSlug(inputString) {
         const accentsMap = {
             'á': 'a', 'à': 'a', 'â': 'a', 'ä': 'a', 'ã': 'a', 'å': 'a',
@@ -22,6 +28,11 @@ class usefulFunction {
         return slug;
     }
 
+    /**
+     * How to download an image from a link
+     * @param {string} imageUrl url of the image
+     * @returns new image name {string}
+     */
     static async downloadImage(imageUrl) {
         return axios.get(imageUrl, { responseType: 'arraybuffer' })
             .then(response => {
@@ -39,6 +50,11 @@ class usefulFunction {
             });
     }
 
+    /**
+     * Method Method to replace the elements of a text {spaces, and special characters}
+     * @param {string} dataToEncrypt 
+     * @returns string
+     */
     static async urllink(dataToEncrypt) {
         let data = dataToEncrypt.toLowerCase();
         data = data.replace(/[^a-zA-Z0-9]/g, '');
@@ -46,6 +62,11 @@ class usefulFunction {
         return data;
     }
 
+    /**
+     * Method to remove (.) at the beginning of a url
+     * @param {string} inputString 
+     * @returns string
+     */
     static removeLeadingDot(inputString) {
         if (inputString.startsWith('.')) {
             return inputString.substring(1);
@@ -53,6 +74,11 @@ class usefulFunction {
         return inputString;
     }
 
+    /**
+     * Method to rename picture
+     * @param {string} picture 
+     * @returns string
+     */
     static renamePicture(picture, url) {
         if (picture.indexOf('http') === -1) {
             if (picture.startsWith('.') || picture.startsWith('/')) {

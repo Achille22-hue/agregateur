@@ -56,7 +56,7 @@ router.get('/presse/:id/:currentPage?', async (req, res) => {
 });
 
 router.get('/all/organes', async (req, res) => {
-    const organes = await Oganes.queryAllArticleOrganes();
+    const organes = await Oganes.queryAllPressOrganes();
     res.status(200).json(organes.rows);
 });
 

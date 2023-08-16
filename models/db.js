@@ -23,13 +23,24 @@ class BD {
         });
     }
 
+    /**
+     * Method to insert a new article in the database
+     * @param {Array} insertValues 
+     * @returns boolean
+     */
     async insertArticle(insertValues) {
         const query = 'INSERT INTO news (source_id, category_id, title, content, image_url) VALUES ($1, $2, $3, $4, $5) ';
         await this.client.query(query, insertValues);
         return true;
     }
 
-    async queryArticles(parPage, premier) {
+    /**
+     * Method executing the item selection query
+     * @param {number} perPage 
+     * @param {number} premier 
+     * @returns object of data
+     */
+    async queryArticles(perPage, premier) {
         const sql = `
             SELECT n.id, n.title, n.image_url, n.content, n.scrapping_date, c.name AS category, p.name AS press_name
             FROM ((press_organ p
@@ -38,11 +49,14 @@ class BD {
             ORDER BY n.id DESC
             LIMIT $1 OFFSET $2`;
 
-        const results = await this.client.query(sql, [parPage, premier]);
+        const results = await this.client.query(sql, [perPage, premier]);
         return results.rows;
     }
 
-
+    /**
+     * Method executing the last item selection query
+     * @returns data || null
+     */
     async lastArticle() {
         const sql = `
             SELECT n.id, n.title, n.image_url, n.content, n.scrapping_date, c.name AS category, p.name AS press_name
@@ -59,28 +73,48 @@ class BD {
         }
     }
 
-
-    async queryPress(id, parPage, premier) {
+    /**
+     * Method for executing the query for selecting articles by press organ
+     * @param {number} id 
+     * @param {number} perPage 
+     * @param {number} premier 
+     * @returns object
+     */
+    async queryPress(id, perPage, premier) {
         const sql = `SELECT n.id, n.title, n.image_url, n.content, n.scrapping_date, c.id AS category_id, c.name AS category, p.name AS press_name
                     FROM ((press_organ p
                     INNER JOIN news n ON n.source_id = p.id)
                     INNER JOIN category c ON n.category_id = c.id)
                     WHERE p.id = $1 ORDER BY n.id DESC  LIMIT $2 OFFSET $3`;
-        return await this.client.query(sql, [id, parPage, premier]);
+        return await this.client.query(sql, [id, perPage, premier]);
     }
 
-    async category() {
+    /**
+     * Method for executing the query for selecting all category
+     * @returns object
+     */
+    async getAllCategory() {
         const sql = 'SELECT * FROM category';
         const results = await this.client.query(sql);
         return results;
     }
 
+    /**
+     * Method for executing the query for selecting number of articles
+     * @returns number
+     */
     async numberOfArticles() {
         const sql = 'SELECT COUNT(*) AS numberofarticles FROM news';
         const results = await this.client.query(sql);
         return results.rows[0].numberofarticles;
     }
 
+    /**
+     * Method for executing the query PostgreSQL requests
+     * @param {string} sql PostgreSQL query
+     * @param {Array} values PostgreSQL query values
+     * @returns data in object
+     */
     async query(sql, values) {
         try {
             const result = await this.client.query(sql, values);
@@ -91,13 +125,25 @@ class BD {
         }
     }
 
-    async countSearch(q) {
+    /**
+     * Method for executing the query for search match count
+     * @param {string} q 
+     * @returns object
+     */
+    async searchMatchCount(q) {
         const sql = `SELECT COUNT(*) AS numberofarticles FROM news WHERE content ILIKE $1 `;
         const results = await this.client.query(sql, ['%' + q + '%']);
         return results.rows[0].numberofarticles;
     }
 
-    async search(q, parPage, premier) {
+    /**
+     * Method for executing the query for search match count by per page and limit
+     * @param {string} q
+     * @param {number} perPage
+     * @param {string} premier
+     * @returns object
+     */
+    async search(q, perPage, premier) {
         const sql = `SELECT n.id, n.title, n.image_url, n.content, n.scrapping_date, c.name AS category, p.name AS press_name
         FROM ((press_organ p
         INNER JOIN news n ON n.source_id = p.id)
@@ -105,16 +151,24 @@ class BD {
         WHERE n.content ILIKE $1 
         ORDER BY n.id DESC 
         LIMIT $2 OFFSET $3`;
-        const results = await this.client.query(sql, ['%' + q + '%', parPage, premier]);
+        const results = await this.client.query(sql, ['%' + q + '%', perPage, premier]);
         return results;
     }
 
+    /**
+     * Method to recover scrapping data
+     * @returns object
+     */
     async queryAllSiteScrapping() {
-        const sql = `SELECT * FROM press_organ INNER JOIN presse_url ON presse_url.press_id = press_organ.id`;
+        const sql = `SELECT * FROM press_organ INNER JOIN scrapData ON scrapData.press_id = press_organ.id`;
         const results = await this.client.query(sql);
         return results.rows;
     }
 
+    /**
+     * Method to check whether an art title
+     * @returns number
+     */
     async checkTitleExists(title, press_id) {
         try {
             const query = 'SELECT COUNT(*) FROM news WHERE title = $1 AND source_id = $2';
@@ -125,6 +179,26 @@ class BD {
             console.error('Erreur lors de la vérification de l\'existence du title:', error.message);
             return false;
         }
+    }
+
+    /**
+     * Method to retrieve the number of articles having as category the category name pass as a parameter
+     * @param {string} categoryName 
+     * @returns number
+     */
+    async getArticleCountByCategoryName(categoryName) {
+        const countResult = await this.client.query('SELECT COUNT(*) AS numberOfArticles FROM news WHERE category_id = $1', [categoryName]);
+        const numberOfArticles = parseInt(countResult.rows[0].numberOfArticles, 10);
+        return numberOfArticles;
+    }
+
+    /**
+     * Method to retrieve the number of articles having as category the category id pass as a parameter
+     * @param {string} categoryName 
+     * @returns object
+     */
+    async getArticlesByCategoryId(categoryid, perPage, firstArticleIndex) {
+        return this.client.query('SELECT * FROM category INNER JOIN news ON category.id = news.category_id WHERE category.id = $1 ORDER BY news.id DESC LIMIT $2 OFFSET $3', [categoryid, perPage, firstArticleIndex]);
     }
 }
 

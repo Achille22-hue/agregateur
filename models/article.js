@@ -87,7 +87,7 @@ class Article extends usefulFunction {
      * @returns Article according to its category
      */
     static async getArticleByCategory(categoryName, requestedPage) {
-        const categorys = await db.category();
+        const categorys = await db.getAllCategory();
         let data = { articles: [], totalPages: 0, title: categoryName, currentPage: 0 };
         let categoryMatched = false;
 
@@ -95,7 +95,7 @@ class Article extends usefulFunction {
             if (categoryName === await this.generateSlug(category.name)) {
                 categoryMatched = true;
                 if (requestedPage <= 0 || isNaN(requestedPage)) { requestedPage = 1; }
-                const count = await db.query('SELECT COUNT(*) AS numberOfArticles FROM news WHERE category_id = $1', [cat.id]);
+                const count = await db.query('SELECT COUNT(*) AS numberOfArticles FROM news WHERE category_id = $1', [category.id]);
                 const perPage = 10;
                 const numberOfArticles = parseInt(count.rows[0].numberofarticles);
                 const pages = Math.ceil(numberOfArticles / perPage);
@@ -104,9 +104,9 @@ class Article extends usefulFunction {
                     continue;
                 }
                 if (requestedPage > pages) { requestedPage = pages; }
-                const first = (requestedPage * perPage) - perPage;
-                const results = await db.query('SELECT * FROM category INNER JOIN news ON category.id = news.category_id WHERE category.id = $1 ORDER BY news.id DESC LIMIT $2 OFFSET $3', [category.id, perPage, first]);
-                const articles = results.rows;
+                const firstArticleIndex = (requestedPage * perPage) - perPage;
+                const articlesResult = await db.getArticlesByCategoryId(category.id, perPage, firstArticleIndex);
+                const articles = articlesResult.rows;
                 data = { articles: articles, currentPage: requestedPage, totalPages: pages, title: category.name };
             }
         }
@@ -114,8 +114,14 @@ class Article extends usefulFunction {
         return data;
     }
 
+    /**
+     * Method to retrieve an number of articles corresponding to the search criteria
+     * @param {string} q 
+     * @param {number} requestedPage 
+     * @returns returns the number of articles corresponding to the search criteria
+     */
     static async searchForAnAticle(q, requestedPage) {
-        const count = await db.countSearch(q);
+        const count = await db.searchMatchCount(q);
         const perPage = 10;
         const numberOfArticles = parseInt(count);
         const pages = Math.ceil(numberOfArticles / perPage);
