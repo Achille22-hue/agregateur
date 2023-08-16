@@ -25,7 +25,7 @@ const scrapeSite = async (scrapData) => {
                     const $new = cheerio.load(newContent.data);
                     const title = $new(option.titleSelector).text().trim();
 
-                    picture = picture || $new(option.imageSelector).attr('src');
+                    picture = picture || $new(option.imageSelector).attr(option.attrImg);
                     picture = (picture) ? await usefulFunction.renamePicture(picture, scrapData.siteweb) : "image_1691412373401.png";
 
                     let content = '';
@@ -52,5 +52,5 @@ const scrapeAllSites = async () => {
 };
 
 // Schedule the scraping job
-cron.schedule('*/1 * * * *', scrapeAllSites);
+cron.schedule('*/15 * * * *', scrapeAllSites);
 module.exports = scrapeSite;

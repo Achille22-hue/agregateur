@@ -19,8 +19,8 @@ router.get('/', async (req, res) => {
 
 router.get('/test', async (req, res) => {
     const sites = await Oganes.queryAllSiteScrapping();
-    scrapeSite(sites[2]);
-    res.send(sites[2]);
+    scrapeSite(sites[3]);
+    res.send(sites[3]);
 });
 
 

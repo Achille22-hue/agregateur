@@ -160,7 +160,7 @@ class BD {
      * @returns object
      */
     async queryAllSiteScrapping() {
-        const sql = `SELECT * FROM press_organ INNER JOIN scrapData ON scrapData.press_id = press_organ.id`;
+        const sql = `SELECT * FROM press_organ INNER JOIN scrap_data ON scrap_data.press_id = press_organ.id`;
         const results = await this.client.query(sql);
         return results.rows;
     }
