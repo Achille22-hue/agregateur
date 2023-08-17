@@ -10,7 +10,7 @@
 
         <div class="col-12">
           <h5>Dernières actualités</h5>
-          <div class="card card-overlay-bottom h-300 overflow-hidden text-center" style="background-image:url('/assets/actualite_img/<%= lastArticle.image_url %>'); background-position: center left; background-size: cover;">
+          <div class="card card-overlay-bottom h-300 overflow-hidden text-center" style="background-image: url('<%= lastArticle.image_url.startsWith('http') ? lastArticle.image_url : '/assets/actualite_img/' + lastArticle.image_url %>'); background-position: center left; background-size: cover;">
             <div class="card-img-overlay d-flex align-items-center p-3 pb-4 px-sm-5">
               <div class="col-12 mt-auto d-md-flex justify-content-between align-items-center">
                 <h4 class="text-white">
@@ -19,6 +19,9 @@
                 <h6 class="badge text-bg-danger  mb-2 fw-medium h6 rounded-0">
                   <%= lastArticle.press_name %>
                 </h6>
+                <div class="ms-1 mt-2 position-absolute top-0 start-0">
+                  <img src="/assets/logos/<%= lastArticle.logo %>" width="124" alt="">
+                </div>
               </div>
             </div>
           </div>
@@ -43,7 +46,7 @@
               <nav aria-label="..." class="mt-4">
                 <ul class="pagination pagination-sm">
                   <li class="page-item <% if(pagingData.currentPage <= 1) { %> disabled <% } %>">
-                    <a class="page-link" href="/page/<%= pagingData.currentPage - 1 %>" tabindex="-1" aria-disabled="true">
+                    <a class="page-link" href="/paging/<%= pagingData.currentPage - 1 %>" tabindex="-1" aria-disabled="true">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
                         <polyline points="15 18 9 12 15 6"></polyline>
                       </svg>
@@ -151,8 +154,8 @@
           </div>
           <div class="col-md-4">
             <div class="sticky">
-              <div class="card rounded-1 p-3 mt-8 bg-primary">
-                <h6 class="text-white mb-0">Organes de presse</h6>
+              <div class="card rounded-1 p-3 mt-8 bg-dark">
+                <h6 class="text-white mb-0">ORGANES DE PRESSES</h6>
               </div>
               <div data-org=""></div>
             </div>

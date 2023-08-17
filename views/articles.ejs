@@ -29,14 +29,14 @@
       <% if (article.image_url.indexOf("http") !==-1) { %>
       <img src="<%= article.image_url %>" style="object-fit: cover; max-height: 230px;" class="rounded-3 w-100 h-100">
       <div class=" position-absolute top-0 start-0">
-        <span class="badge bg-primary rounded-0">
+        <span class="badge bg-dark rounded-0">
           <%= article.category %>
         </span>
       </div>
       <% }else{ %>
       <img src="/assets/actualite_img/<%= article.image_url %>" style="object-fit: cover; max-height: 230px;" class="rounded-3 w-100 h-100">
       <div class=" position-absolute top-0 start-0">
-        <span class="badge bg-primary rounded-0"><%= article.category %></span>
+        <span class="badge bg-dark rounded-0"><%= article.category %></span>
       </div>
       <% } %>
       <% } %>
@@ -48,7 +48,7 @@
           <%= formatDate(article.scrapping_date) %>
         </small>
       </div>
-      <h5><a href="/articles/<%= article.id %>/<%= generateSlug(article.title) %>/" class="stretched-link"><%= article.title %></a></h5>
+      <h5><a href="/articles/<%= article.id %>/<%= generateSlug(article.title) %>/" class="stretched-link text-dark"><%= article.title %></a></h5>
       <div class="readMore"><%- article.content %></div>
     </div>
   </div>

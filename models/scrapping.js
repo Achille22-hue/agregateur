@@ -34,7 +34,7 @@ const scrapeSite = async (scrapData) => {
                         $new(element).find(contentRemoved).remove();
                         content += $new.html(element);
                     });
-
+                    
                     Article.addNewArticle(scrapData.press_id, category.category, title, content, picture);
                 } catch (error) {
                     console.log('Error while scraping ' + link + ': ' + error);
@@ -53,5 +53,5 @@ const scrapeAllSites = async () => {
 };
 
 // Schedule the scraping job
-cron.schedule('*/1 * * * *', scrapeAllSites);
+cron.schedule('*/15 * * * *', scrapeAllSites);
 module.exports = scrapeSite;

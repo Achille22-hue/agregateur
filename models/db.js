@@ -59,7 +59,7 @@ class BD {
      */
     async lastArticle() {
         const sql = `
-            SELECT n.id, n.title, n.image_url, n.content, n.scrapping_date, c.name AS category, p.name AS press_name
+            SELECT n.id, n.title, n.image_url, n.content, n.scrapping_date, c.name AS category, p.name AS press_name, p.logo AS logo
             FROM ((press_organ p
             INNER JOIN news n ON n.source_id = p.id)
             INNER JOIN category c ON n.category_id = c.id)
