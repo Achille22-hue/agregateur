@@ -19,10 +19,9 @@ router.get('/', async (req, res) => {
 
 router.get('/test', async (req, res) => {
     const sites = await Oganes.queryAllSiteScrapping();
-    scrapeSite(sites[3]);
-    res.send(sites[3]);
+    scrapeSite(sites[1]);
+    res.send(sites[1]);
 });
-
 
 router.get('/paging/:currentPage', async (req, res) => {
     const requestedPage = req.params.currentPage || 1;
@@ -77,6 +76,5 @@ router.get('/search/:q/:currentPage?', async (req, res) => {
     const pagingData = await Article.searchForAnAticle(q, requestedPage);
     res.render('search', { pagingData: pagingData, searchValue: q });
 });
-
 
 module.exports = router;

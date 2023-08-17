@@ -12,13 +12,14 @@ const scrapeSite = async (scrapData) => {
             const $ = cheerio.load(response.data);
             const option = scrapData.options[0];
             const articleElements = $(option.selector);
+            const contentRemoved = '.textimagrub1, .affichage-line3, .textimagrub1contenu, .post-meta,span,a,small,iframe,figure,img,script,div[class]';
 
             for (const element of articleElements) {
                 let link = $(element).find(option.lienSelector).attr('href');
                 let picture = $(element).find(option.imageSelector).attr('src');
 
                 // Check if the link URL contains the domain of the site, if not, add the domain
-                link = (link.indexOf('./') !== -1) ? scrapData.siteweb + await usefulFunction.removeLeadingDot(link) : link;
+                link = (link.indexOf('./') !== -1 || link.startsWith('/')) ? scrapData.siteweb + await usefulFunction.removeLeadingDot(link) : link;
 
                 try {
                     const newContent = await axios.get(link);
@@ -30,17 +31,17 @@ const scrapeSite = async (scrapData) => {
 
                     let content = '';
                     $new(option.contentSelector).each((index, element) => {
-                        $new(element).find('.post-meta,span,a,small,iframe,figure,img,script,div').remove();
+                        $new(element).find(contentRemoved).remove();
                         content += $new.html(element);
                     });
 
                     Article.addNewArticle(scrapData.press_id, category.category, title, content, picture);
                 } catch (error) {
-                    console.log('Error while scraping ' + link);
+                    console.log('Error while scraping ' + link + ': ' + error);
                 }
             }
         } catch (error) {
-            console.log('Error while scraping ' + scrapData.name);
+            console.log('Error while scraping ' + scrapData.name + ': ' + error);
         }
     }
 };
@@ -52,5 +53,5 @@ const scrapeAllSites = async () => {
 };
 
 // Schedule the scraping job
-cron.schedule('*/15 * * * *', scrapeAllSites);
+cron.schedule('*/1 * * * *', scrapeAllSites);
 module.exports = scrapeSite;
