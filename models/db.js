@@ -1,24 +1,20 @@
 const { Client } = require('pg');
 
+/**
+ * Class representing the database connection
+ */
 class BD {
     constructor() {
-        this.client = new Client({
-            user: 'postgres',
-            host: 'localhost',
-            database: 'postgres',
-            password: 'Avent123',
-            port: 5432,
-        });
-
+        this.client = new Client({ user: 'postgres', host: 'localhost', database: 'postgres', password: 'Avent123', port: 5432, });
         this.connect();
     }
 
     connect() {
         this.client.connect((err) => {
             if (err) {
-                console.error('Erreur lors de la connexion à la base de données', err);
+                console.error('Error connecting to database', err);
             } else {
-                console.log('Connecté à la base de données');
+                console.log('Connected to database');
             }
         });
     }
@@ -26,7 +22,7 @@ class BD {
     /**
      * Method to insert a new article in the database
      * @param {Array} insertValues 
-     * @returns boolean
+     * @returns 
      */
     async insertArticle(insertValues) {
         const query = 'INSERT INTO news (source_id, category_id, title, content, image_url) VALUES ($1, $2, $3, $4, $5) ';
@@ -120,7 +116,7 @@ class BD {
             const result = await this.client.query(sql, values);
             return result;
         } catch (err) {
-            console.error('Erreur lors de l\'exécution de la requête', err);
+            console.error('Error while executing the query', err);
             throw err;
         }
     }
@@ -176,7 +172,7 @@ class BD {
             const count = parseInt(result.rows[0].count, 10);
             return count;
         } catch (error) {
-            console.error('Erreur lors de la vérification de l\'existence du title:', error.message);
+            console.error('Error while checking the existence of the title:', error.message);
             return false;
         }
     }

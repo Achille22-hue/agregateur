@@ -2,6 +2,9 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * Class representing the filesystem operations supported by the server and client side
+ */
 class usefulFunction {
 
     /**
@@ -41,11 +44,11 @@ class usefulFunction {
                 const imageName = `image_${timestamp}${extension}`;
                 const imagePath = path.join(__dirname, '..', 'public', 'assets', 'actualite_img', imageName);
                 fs.writeFileSync(imagePath, response.data);
-                console.log(`L'image ${imageName} a été téléchargée avec succès.`);
+                console.log(`Image ${imageName} has been uploaded successfully.`);
                 return imageName;
             })
             .catch(error => {
-                console.log('Erreur lors du téléchargement de l\'image:', error.message);
+                console.log('Error downloading image:', error.message);
                 return imageUrl;
             });
     }

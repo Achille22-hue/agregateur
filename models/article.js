@@ -1,6 +1,9 @@
 const db = require('./db');
 const usefulFunction = require('./usefulFunction');
 
+/**
+ * Class representing the database connection
+ */
 class Article extends usefulFunction {
 
     /**
@@ -9,9 +12,9 @@ class Article extends usefulFunction {
      * @param {number} category_id 
      * @param {string} title 
      * @param {string} content
-     * @param {string} image_url 
+     * @param {string} image_url
+     * @returns Object
      */
-
     static async addNewArticle(source_id, category_id, title, content, image_url) {
         console.log('In the process of scraping');
         const resultPromise = db.checkTitleExists(title, source_id);
