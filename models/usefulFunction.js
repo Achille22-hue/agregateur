@@ -1,5 +1,5 @@
 const axios = require('axios');
-const fs = require('fs');
+const fs = require('fs/promises');
 const path = require('path');
 const db = require('./db');
 
@@ -35,22 +35,24 @@ class usefulFunction {
     /**
      * How to download an image from a link
      * @param {string} imageUrl url of the image
+     * @param {string} articleId id of the article
      * @returns new image name {string}
      */
     static async downloadImage(imageUrl, articleId) {
         try {
             const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
-
             const timestamp = Date.now();
             const extension = path.extname(imageUrl);
             const imageName = `image_${timestamp}${extension}`;
             const imagePath = path.join(__dirname, '..', 'public', 'assets', 'actualite_img', imageName);
-            fs.writeFileSync(imagePath, response.data);
+
+            await fs.writeFile(imagePath, response.data);
             await db.editArticleURLsImage(articleId, imageName);
-            console.log(`L'image ${imageName} a été téléchargée avec succès.`);
+
+            console.log(`L'image ${imageName} a été téléchargée avec succès`);
             return imageName;
         } catch (error) {
-            console.log('Erreur lors du téléchargement de l\'image :', error.message);
+            console.error('Erreur lors du téléchargement de l\'image:' + imageUrl, error.message);
             return imageUrl;
         }
     }

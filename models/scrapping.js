@@ -7,6 +7,7 @@ const db = require('./db');
 
 const scrapeSite = async (scrapData) => {
     for (const category of scrapData.site) {
+        console.log('Doing the scraping');
         try {
             const response = await axios.get(category.url);
             const $ = cheerio.load(response.data);
@@ -31,11 +32,11 @@ const scrapeSite = async (scrapData) => {
                     });
                     Article.addNewArticle(scrapData.press_id, category.category, title, content, picture);
                 } catch (error) {
-                    console.log('Error while scraping ' + link + ': ' + error);
+                    console.log('Error while scraping' + link + ' : ' + error);
                 }
             }
         } catch (error) {
-            console.log('Error while scraping ' + scrapData.name + ': ' + error);
+            console.log('Error while scraping' + scrapData.name + ' : ' + error);
         }
     }
 };

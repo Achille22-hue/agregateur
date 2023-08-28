@@ -17,15 +17,21 @@ class Article extends usefulFunction {
      * @returns Object
      */
     static async addNewArticle(source_id, category_id, title, content, image_url) {
-        console.log('In the process of scraping');
+        console.log('Adding extracted data');
         try {
             const titleExists = await db.checkTitleExists(title, source_id);
-            if (titleExists || title === "") { return 'This title exists' }
+            if (titleExists || title === "") {
+                return 'This title already exists';
+            }
+
             const insertValues = [source_id, category_id, title, content, image_url];
-            const article = await db.insertArticle(insertValues);
-            downloadImageTask(article);
+            await db.insertArticle(insertValues).then(async (article) => {
+                await downloadImageTask(article);
+            }).catch((err) => {
+                console.error('Error while inserting data into database :', error.message);
+            });
         } catch (error) {
-            console.error('Error:', error.message);
+            console.error('Error checking title:', error.message);
         }
     }
 
