@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./controllers/routes');
 const scrapeSite = require('./models/scrapping.js');
+const downloadImageTask = require('./models/downloadImageTask');
 
 const app = express();
 const port = 3000;

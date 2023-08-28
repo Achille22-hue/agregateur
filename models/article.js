@@ -1,5 +1,6 @@
 const db = require('./db');
 const usefulFunction = require('./usefulFunction');
+const downloadImageTask = require('./downloadImageTask');
 
 /**
  * Class representing the database connection
@@ -17,19 +18,15 @@ class Article extends usefulFunction {
      */
     static async addNewArticle(source_id, category_id, title, content, image_url) {
         console.log('In the process of scraping');
-        const resultPromise = db.checkTitleExists(title, source_id);
-        resultPromise.then(async titleExists => {
-            if (titleExists || title === "") { return }
-            try {
-                const downloadedImageName = await this.downloadImage(image_url);
-                const insertValues = [source_id, category_id, title, content, downloadedImageName];
-                await db.insertArticle(insertValues);
-            } catch (error) {
-                console.error('Error inserting item:', error.message);
-            }
-        }).catch(error => {
-            console.error('Error checking title:', error);
-        });
+        try {
+            const titleExists = await db.checkTitleExists(title, source_id);
+            if (titleExists || title === "") { return 'This title exists' }
+            const insertValues = [source_id, category_id, title, content, image_url];
+            const article = await db.insertArticle(insertValues);
+            downloadImageTask(article);
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
     }
 
     /**

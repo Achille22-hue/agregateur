@@ -1,6 +1,7 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const db = require('./db');
 
 /**
  * Class representing the filesystem operations supported by the server and client side
@@ -36,21 +37,22 @@ class usefulFunction {
      * @param {string} imageUrl url of the image
      * @returns new image name {string}
      */
-    static async downloadImage(imageUrl) {
-        return axios.get(imageUrl, { responseType: 'arraybuffer' })
-            .then(response => {
-                const timestamp = Date.now();
-                const extension = path.extname(imageUrl);
-                const imageName = `image_${timestamp}${extension}`;
-                const imagePath = path.join(__dirname, '..', 'public', 'assets', 'actualite_img', imageName);
-                fs.writeFileSync(imagePath, response.data);
-                console.log(`Image ${imageName} has been uploaded successfully.`);
-                return imageName;
-            })
-            .catch(error => {
-                console.log('Error downloading image:', error.message);
-                return imageUrl;
-            });
+    static async downloadImage(imageUrl, articleId) {
+        try {
+            const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+
+            const timestamp = Date.now();
+            const extension = path.extname(imageUrl);
+            const imageName = `image_${timestamp}${extension}`;
+            const imagePath = path.join(__dirname, '..', 'public', 'assets', 'actualite_img', imageName);
+            fs.writeFileSync(imagePath, response.data);
+            await db.editArticleURLsImage(articleId, imageName);
+            console.log(`L'image ${imageName} a été téléchargée avec succès.`);
+            return imageName;
+        } catch (error) {
+            console.log('Erreur lors du téléchargement de l\'image :', error.message);
+            return imageUrl;
+        }
     }
 
     /**
@@ -77,6 +79,8 @@ class usefulFunction {
         return inputString;
     }
 
+    // webRedis
+    // script tag
     /**
      * Method to rename picture
      * @param {string} picture 

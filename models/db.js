@@ -20,14 +20,30 @@ class BD {
     }
 
     /**
+     * Method to retrieve article urls and add them to the queue
+     * @returns Objet article urls
+     */
+    async retrieveArticleUrls() {
+        const query = 'SELECT id, image_url FROM news WHERE status = 0';
+        const articleUrls = await this.client.query(query);
+        return articleUrls.rows;
+    }
+
+    /**
      * Method to insert a new article in the database
      * @param {Array} insertValues 
      * @returns 
      */
     async insertArticle(insertValues) {
-        const query = 'INSERT INTO news (source_id, category_id, title, content, image_url) VALUES ($1, $2, $3, $4, $5) ';
-        await this.client.query(query, insertValues);
-        return true;
+        const query = 'INSERT INTO news (source_id, category_id, title, content, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING id,image_url';
+        const articleId = await this.client.query(query, insertValues);
+        const id = articleId.rows[0];
+        return id;
+    }
+
+    async editArticleURLsImage(id, imgName) {
+        const query = 'UPDATE news SET image_url = $1, status = $2 WHERE id = $3';
+        await this.client.query(query, [imgName, 1, id]);
     }
 
     /**
