@@ -17,7 +17,6 @@ const retrieveArticleUrls = async () => {
 
 const downloadImageTask = async (article, retries = 3) => {
     try {
-        console.log(article.image_url.toString());
         await usefulFunction.downloadImage(article.image_url, article.id);
     } catch (error) {
         console.log(`${3 - retries + 1} Error downloading image from ${article.image_url} :`, error.message);
@@ -37,5 +36,5 @@ setInterval(async () => {
     }
 }, 5000);
 
-cron.schedule('*/1 * * * *', retrieveArticleUrls);
+cron.schedule('*/15 * * * *', retrieveArticleUrls);
 module.exports = downloadImageTask;
