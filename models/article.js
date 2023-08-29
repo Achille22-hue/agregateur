@@ -1,6 +1,6 @@
 const db = require('./db');
 const usefulFunction = require('./usefulFunction');
-const downloadImageTask = require('./downloadImageTask');
+const addTaskToQueue = require('./addTaskToQueue');
 
 /**
  * Class representing the database connection
@@ -16,20 +16,20 @@ class Article extends usefulFunction {
      * @param {string} image_url
      * @returns Object
      */
-    static async addNewArticle(source_id, category_id, title, content, image_url) {
-        console.log('Adding extracted data');
+    static async addNewArticle(source_id, category_id, title, content, image_url, Text_content) {
         try {
             const titleExists = await db.checkTitleExists(title, source_id);
             if (titleExists || title === "") {
                 return 'This title already exists';
             }
-
-            const insertValues = [source_id, category_id, title, content, image_url];
-            await db.insertArticle(insertValues).then(async (article) => {
-                await downloadImageTask(article);
-            }).catch((err) => {
-                console.error('Error while inserting data into database :', error.message);
-            });
+            const insertValues = [source_id, category_id, title, content, image_url, Text_content];
+            await db.insertArticle(insertValues)
+                .then(async (article) => {
+                    await addTaskToQueue(article);
+                })
+                .catch((err) => {
+                    console.error('Error while inserting data into the database:', err.message);
+                });
         } catch (error) {
             console.error('Error checking title:', error.message);
         }

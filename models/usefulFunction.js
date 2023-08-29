@@ -33,6 +33,19 @@ class usefulFunction {
     }
 
     /**
+     * @param {string} imageUrl url of the image
+     * @returns 
+     */
+    static extractedExtension(imageUrl) {
+        const lastDotIndex = imageUrl.indexOf('?');
+        if (lastDotIndex !== -1) {
+            const extension = imageUrl ? imageUrl.split('?')[0] : null;
+            return extension;
+        }
+        return imageUrl;
+    }
+
+    /**
      * How to download an image from a link
      * @param {string} imageUrl url of the image
      * @param {string} articleId id of the article
@@ -41,19 +54,27 @@ class usefulFunction {
     static async downloadImage(imageUrl, articleId) {
         try {
             const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
-            const timestamp = Date.now();
-            const extension = path.extname(imageUrl);
-            const imageName = `image_${timestamp}${extension}`;
-            const imagePath = path.join(__dirname, '..', 'public', 'assets', 'actualite_img', imageName);
-
-            await fs.writeFile(imagePath, response.data);
-            await db.editArticleURLsImage(articleId, imageName);
-
-            console.log(`L'image ${imageName} a été téléchargée avec succès`);
-            return imageName;
+            if (response.status === 200) {
+                const timestamp = Date.now();
+                const extension = this.extractedExtension(path.extname(imageUrl));
+                const imageName = `image_${timestamp}${extension}`;
+                const imagePath = path.join(__dirname, '..', 'public', 'assets', 'actualite_img', imageName);
+                console.log(extension);
+                await fs.writeFile(imagePath, response.data);
+                const dbSuccess = await db.editArticleURLsImage(articleId, imageName);
+                if (dbSuccess) {
+                    console.log(`Image ${imageName} downloaded and processed successfully`);
+                    return true;
+                } else {
+                    console.log(`Failed to update article with image ${imageName}`);
+                    await fs.unlink(imagePath);
+                    return false;
+                }
+            }
+            return false;
         } catch (error) {
-            console.error('Erreur lors du téléchargement de l\'image:' + imageUrl, error.message);
-            return imageUrl;
+            console.error('Error downloading image:', error.message);
+            return false;
         }
     }
 

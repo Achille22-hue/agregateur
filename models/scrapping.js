@@ -30,7 +30,12 @@ const scrapeSite = async (scrapData) => {
                         $new(element).find(contentRemoved).remove();
                         content += $new.html(element);
                     });
-                    Article.addNewArticle(scrapData.press_id, category.category, title, content, picture);
+
+                    const $text = cheerio.load(content);
+                    const Text_content = $text.text();
+                    
+                    Article.addNewArticle(scrapData.press_id, category.category, title, content, picture, Text_content);
+
                 } catch (error) {
                     console.log('Error while scraping' + link + ' : ' + error);
                 }

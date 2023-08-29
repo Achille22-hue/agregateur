@@ -35,7 +35,7 @@ class BD {
      * @returns 
      */
     async insertArticle(insertValues) {
-        const query = 'INSERT INTO news (source_id, category_id, title, content, image_url) VALUES ($1, $2, $3, $4, $5) RETURNING id,image_url';
+        const query = 'INSERT INTO news (source_id, category_id, title, content, image_url, text_content) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id,image_url';
         const articleId = await this.client.query(query, insertValues);
         const id = articleId.rows[0];
         return id;
@@ -44,6 +44,7 @@ class BD {
     async editArticleURLsImage(id, imgName) {
         const query = 'UPDATE news SET image_url = $1, status = $2 WHERE id = $3';
         await this.client.query(query, [imgName, 1, id]);
+        return true;
     }
 
     /**
