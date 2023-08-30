@@ -26954,7 +26954,7 @@ input::-webkit-outer-spin-button {
 
 .docs-header .navbar {
     box-shadow: 0 -9px 49px rgba(22, 20, 37, .12), 0 -2.71324px 14.7721px rgba(22, 20, 37, .14), 0 -1.12694px 6.13556px rgba(22, 20, 37, .16), 0 -.407592px 2.21911px rgba(22, 20, 37, .18);
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     z-index: 1022
 }
@@ -31442,4 +31442,27 @@ img {
 .organe.active {
     left: 12px;
     background-color: var(--fc-danger);
+}
+
+.btn-xs {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.6rem;
+    line-height: 1.2;
+    border-radius: 0.25rem;
+}
+.avatar-story:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--fc-primary);
+    z-index: -1;
+}
+.avatar-story {
+    position: relative;
+    padding: 4px;
+    z-index: 1;
 }

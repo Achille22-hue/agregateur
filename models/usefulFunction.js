@@ -59,7 +59,6 @@ class usefulFunction {
                 const extension = this.extractedExtension(path.extname(imageUrl));
                 const imageName = `image_${timestamp}${extension}`;
                 const imagePath = path.join(__dirname, '..', 'public', 'assets', 'actualite_img', imageName);
-                console.log(extension);
                 await fs.writeFile(imagePath, response.data);
                 const dbSuccess = await db.editArticleURLsImage(articleId, imageName);
                 if (dbSuccess) {

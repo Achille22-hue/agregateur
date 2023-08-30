@@ -21,38 +21,40 @@
     }
 %>
 
-<div class="card rounded-1 p-3 mt-4">
-  <div class="row">
-    <div class="col-md-5">
-      <% if (article.image_url===null) { %>
-      <% } else { %>
-      <% if (article.image_url.indexOf("http") !==-1) { %>
-      <img src="<%= article.image_url %>" style="object-fit: cover; max-height: 230px;" class="rounded-3 w-100 h-100">
-      <div class=" position-absolute top-0 start-0">
-        <span class="badge bg-dark rounded-0">
+<div class="card mt-3">
+  <div class="card-header border-0 pb-0">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <!-- <div class="avatar avatar-story me-2">
+          <a href="#!"> <img class="avatar-img rounded-circle" src="https://social.webestica.com/assets/images/avatar/04.jpg" alt=""> </a>
+        </div> -->
+        <div>
+          <div class="nav nav-divider">
+             <h6 class="badge text-bg-danger  mb-0 fw-medium h6 rounded-0"><%= article.press_name %></h6>
+            
+          </div>
+          <span class="badge bg-dark rounded-0">
           <%= article.category %>
         </span>
+        </div>
       </div>
-      <% }else{ %>
-      <img src="/assets/actualite_img/<%= article.image_url %>" style="object-fit: cover; max-height: 230px;" class="rounded-3 w-100 h-100">
-      <div class=" position-absolute top-0 start-0">
-        <span class="badge bg-dark rounded-0"><%= article.category %></span>
-      </div>
-      <% } %>
-      <% } %>
-    </div>
-    <div class="col-md-7 mt-3 mt-md-0">
-      <div class="d-flex justify-content-between">
-        <h6 class="badge text-bg-danger  mb-2 fw-medium h6 rounded-0"><%= article.press_name %></h6>
-        <small>
-          <%= formatDate(article.scrapping_date) %>
-        </small>
-      </div>
-      <h5><a href="/articles/<%= article.id %>/<%= generateSlug(article.title) %>/" class="stretched-link text-dark"><%= article.title %></a></h5>
-      <div class="readMore"><%- article.content %></div>
+      <span class="nav-item small ms-2"><%= formatDate(article.scrapping_date) %></span>
     </div>
   </div>
+  <div class="card-body">
+    <h5><a href="/articles/<%= article.id %>/<%= generateSlug(article.title) %>/" class="stretched-link text-dark"><%= article.title %></a></h5>
+    <% if (article.image_url===null) { %>
+      <% } else { %>
+      <% if (article.image_url.indexOf("http") !==-1) { %>
+         <img class="card-img" src="<%= article.image_url %>" alt="Post">
+      <% }else{ %>
+         <img class="card-img" style="height:330px; object-fit: cover;" src="/assets/actualite_img/<%= article.image_url %>" alt="Post">
+      <% } %>
+      <% } %>
+    <div class="readMore mt-3"><%- article.content %></div>
+  </div>
 </div>
+
 <% }); %>
 <% function formatDate(dateString) { const date=new Date(dateString); const day=String(date.getDate()).padStart(2, '0'
         ); const month=String(date.getMonth() + 1).padStart(2, '0' ); // Les mois sont indexés à partir de 0 const
